@@ -5,7 +5,11 @@ module.exports = {
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            content: {
+                link: 'url("/icons/link.svg")',
+            },
+        },
     },
     plugins: [],
 };

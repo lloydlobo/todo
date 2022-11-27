@@ -7,6 +7,7 @@ import {
     useWindowListener,
 } from "../lib/hooks";
 import { Cartesian, Coordinates, Inputs } from "../lib/interfaces";
+import { XMarkIcon } from "./icons";
 
 /**
  * Search component has input field returns data when changes.
@@ -33,8 +34,7 @@ export function Search(): JSX.Element {
     } = useForm<Inputs>();
 
     const [search, setSearch] = useState("");
-    const r = ["hi", "hello"];
-    const [results, setResults] = useState<string[]>(r);
+    const [results, setResults] = useState<string[]>([]);
     const [searchBarHovered, setExpand] = useState<null | boolean>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -103,7 +103,7 @@ export function Search(): JSX.Element {
                         <svg aria-hidden="true" className="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" > <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" ></path> </svg>
                     </div>
                     {/* register your input into the hook by invoking the "register" function */}
-                    <div className="input">
+                    <div className="input ">
                         <input
                             defaultValue=""
                             {...register("searchInput")}
@@ -113,32 +113,61 @@ export function Search(): JSX.Element {
                             className="block w-full rounded-lg border border-gray-300 bg-gray-50 py-2 pl-10 text-xs text-gray-900 transition-all delay-1000 ease-linear focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-neutral-900 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 xl:focus:w-[40vw]"
                             placeholder="Search tasks…"
                             aria-label="search"
-                            // onBlur={cleanSearch}
                             required
-                            // inputProps={{ "aria-label": "search" }}
+                            // onBlur={cleanSearch}
                         />
                     </div>
-                    {results.length > 0 && typeof results !== undefined
-                        ? results?.map(
-                              (result, index) =>
-                                  result && (
-                                      <div key={index} className="result">
-                                          {result}
-                                      </div>
-                                  )
-                          )
-                        : null}
+
+                    <div className="absolute">
+                        <ul className="result pointer-events-none  grid translate-y-4 gap-4 space-x-0 space-y-4">
+                            {results.length > 0 &&
+                            typeof results !== undefined ? (
+                                results?.map((result, index) => (
+                                    <li
+                                        key={`${index}-${search}`}
+                                        className="absolute grid gap-4"
+                                        aria-label="Search result"
+                                    >
+                                        {result}
+                                    </li>
+                                ))
+                            ) : (
+                                <li
+                                    className="sr-only"
+                                    aria-label="No search result"
+                                >
+                                    No results found
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+
                     {/* errors will return when field validation fails  */}
                     {errors.searchInputRequired && (
                         <span>This field is required</span>
                     )}
-                    {userIsSearching ? (
+
+                    {!userIsSearching ? (
                         <button
                             type="button"
+                            aria-label="Clear Search Input"
                             onClick={clearSearch}
-                            className="close absolute top-0 right-0 z-30 h-8 -translate-x-8 items-center text-amber-400"
+                            className="close absolute top-0 right-0 z-30 h-8 -translate-x-8 items-center text-xs after:absolute "
                         >
-                            X
+                            <div className="h-4 w-4 rounded-sm hover:bg-slate-800">
+                                <XMarkIcon className="after:link absolute h-4 w-4 items-center " />
+                            </div>
+                            {/* https://versoly.com/versoly-ui/getting-started/quickstart */}
+                            {/* [data-toggle="dropdown"] */}
+                            <div
+                                className="after:bg-caret-down absolute top-2  flex items-center gap-x-1 bg-opacity-0 p-2 after:absolute after:-left-2 after:top-8 after:h-4 after:w-4
+                             after:flex-shrink-0 after:bg-no-repeat after:opacity-0
+                            hover:after:opacity-100
+                            hover:after:content-['Clear'] "
+                            />
+                            <span className="sr-only" aria-label="Clear">
+                                Clear
+                            </span>
                         </button>
                     ) : null}
                     <button
