@@ -1,21 +1,25 @@
 import Link from "next/link";
 import { brand } from "../../lib/data/brand";
+import { MenuDropdown } from "../interactive";
 import { Search } from "../Search";
 
 export function Navbar() {
     return (
         <nav className="absolute">
             <div className="fixed left-0 z-50 w-full bg-black/50">
-                <div className="navbar border-b-2 border-gray-900/80 p-4 shadow-md shadow-slate-900/10 backdrop-blur-lg">
-                    <ul className="grid grid-cols-5 items-center gap-x-4">
-                        <li className="logo navbar-left col-span-2 text-lg font-bold">
+                <div className="p-4 border-b-2 shadow-md navbar border-gray-900/80 shadow-slate-900/10 backdrop-blur-lg">
+                    <ul className="flex items-center justify-between gap-x-4">
+                        <li className="mr-auto text-lg font-bold logo navbar-left">
                             {brand.name}
                         </li>
-                        <li className="navbar-center col-span-2 w-full place-self-start">
+                        <li className="">
                             <Search />
                         </li>
-                        <li className="navbar-right grid place-content-end">
-                            <ul className="list grid grid-flow-col gap-4">
+                        <li className="grid place-content-end">
+                            <ul className="grid grid-flow-col gap-4 list">
+                                <li>
+                                    <MenuDropdown />
+                                </li>
                                 <li>
                                     <Link href="/about" className="link">
                                         About

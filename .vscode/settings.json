@@ -12,9 +12,27 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true,
-        "**/node_modules": true,
-        "node_modules": true
+        ".vscode/": true,
+        "jest.config.js": true,
+        "jest.setup.js": true,
+        "next-env.d.ts": true,
+        "next.config.js": true,
+        "package-lock.json": true,
+        "playwright.config.ts": true,
+        "postcss.config.js": true,
+        "prettier.config.js": true,
+        "tsconfig.tsbuildinfo": true,
+        "tsconfig.json": true,
+        ".eslintrc.json": true,
+        ".hintrc": true,
+        ".prettierrc": true,
+        "tests-examples/": true,
+        "playwright-report/": true,
+        "node_modules/": true,
+        ".github/": true,
+        ".next/": true,
+        ".trunk/": true,
+        "docs/": true
     },
     "explorerExclude.backup": {},
     "editor.tokenColorCustomizations": {
@@ -27,5 +45,46 @@
             }
         ],
         "comments": ""
-    }
+    },
+    "hidefiles.configurationType": "local",
+    "hidefiles.globalConfig": {
+        "profiles": [
+            {
+                "name": "Default",
+                "detail": "",
+                "description": "Test",
+                "hidden": [
+                    ".vscode/",
+                    "jest.config.js",
+                    "jest.setup.js",
+                    "next-env.d.ts",
+                    "next.config.js",
+                    "package-lock.json",
+                    "jest.setup.js",
+                    "playwright.config.ts",
+                    "postcss.config.js",
+                    "prettier.config.js",
+                    "tsconfig.tsbuildinfo",
+                    "tsconfig.json",
+                    ".eslintrc.json",
+                    ".hintrc",
+                    ".prettierrc",
+                    ".eslintrc.json",
+                    "tests-examples/",
+                    "playwright-report/",
+                    "node_modules/",
+                    ".github/",
+                    ".next/",
+                    ".trunk/",
+                    "docs/"
+                ]
+            },
+            {
+                "name": "Strict",
+                "detail": "Hide everything not immediately required",
+                "hidden": ["$Default"]
+            }
+        ]
+    },
+    "dotenv.enableAutocloaking": false
 }
