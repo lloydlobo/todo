@@ -77,10 +77,10 @@ export function Search(): JSX.Element {
         // Don not want button click handlers to have fetch code.
         // useState, useReducer
         /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-        <div className="grid  place-content-end">
+        <div className="grid place-content-end">
             {/* eslint-disable-next-line */}
             <div
-                className={`pointer-events-none absolute -left-2 -top-2 h-4 w-4 rounded-full bg-pink-400 opacity-60`}
+                className={`pointer-events-none absolute -left-2 -top-2 h-4 w-4 rounded-full bg-pink-400/10 opacity-60`}
                 style={{
                     transform: `translate(${position.x}px, ${position.y}px)`,
                 }}
@@ -96,21 +96,21 @@ export function Search(): JSX.Element {
                 }`}
             >
                 {/* prettier-ignore */}
-                <label htmlFor="default-search" className="sr-only mb-2 text-xs font-medium text-gray-900 dark:text-white" >Search</label>
+                <label htmlFor="default-search" className="mb-2 text-xs font-medium text-gray-900 sr-only dark:text-white" >Search</label>
                 <div className="relative">
                     {/* prettier-ignore */}
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <svg aria-hidden="true" className="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" > <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" ></path> </svg>
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none" title="icon">
+                        <svg aria-hidden="true" className="w-3 h-3 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" > <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" ></path> </svg>
                     </div>
                     {/* register your input into the hook by invoking the "register" function */}
-                    <div className="input ">
+                    <div className="input">
                         <input
                             defaultValue=""
                             {...register("searchInput")}
                             type="search"
                             id="default-search"
                             onChange={onChange}
-                            className="block w-full rounded-lg border border-gray-300 bg-gray-50 py-2 pl-10 text-xs text-gray-900 transition-all delay-1000 ease-linear focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-neutral-900 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 xl:focus:w-[40vw]"
+                            className="block w-full rounded-lg border border-zinc-300 bg-gray-50 py-1 pl-8 text-xs text-gray-900 transition-all delay-1000 ease-linear focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-zinc-900/30 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 xl:focus:w-[40vw]"
                             placeholder="Search tasks…"
                             aria-label="search"
                             required
@@ -119,7 +119,7 @@ export function Search(): JSX.Element {
                     </div>
 
                     <div className="absolute">
-                        <ul className="result pointer-events-none  grid translate-y-4 gap-4 space-x-0 space-y-4">
+                        <ul className="grid gap-4 space-x-0 space-y-4 translate-y-4 pointer-events-none result">
                             {results.length > 0 &&
                             typeof results !== undefined ? (
                                 results?.map((result, index) => (
@@ -147,15 +147,15 @@ export function Search(): JSX.Element {
                         <span>This field is required</span>
                     )}
 
-                    {!userIsSearching ? (
+                    {userIsSearching ? (
                         <button
                             type="button"
                             aria-label="Clear Search Input"
                             onClick={clearSearch}
-                            className="close absolute top-0 right-0 z-30 h-8 -translate-x-8 items-center text-xs after:absolute "
+                            className="absolute top-0 right-0 z-30 items-center h-8 text-xs -translate-x-8 close after:absolute "
                         >
-                            <div className="h-4 w-4 rounded-sm hover:bg-slate-800">
-                                <XMarkIcon className="after:link absolute h-4 w-4 items-center " />
+                            <div className="w-4 h-4 rounded-sm hover:bg-slate-800">
+                                <XMarkIcon className="absolute items-center w-3 h-3 after:link " />
                             </div>
                             {/* https://versoly.com/versoly-ui/getting-started/quickstart */}
                             {/* [data-toggle="dropdown"] */}
@@ -170,12 +170,15 @@ export function Search(): JSX.Element {
                             </span>
                         </button>
                     ) : null}
+
                     <button
+                        title="search"
+                        role="button"
                         type="submit"
-                        className="py-auto absolute top-0 right-0 h-full rounded-r-lg border border-blue-700 bg-blue-700 px-1  text-xs font-medium text-white shadow-inner hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="absolute top-0 right-0 h-full px-1 text-xs font-medium text-white bg-blue-700 border border-blue-700 rounded-r-lg shadow-inner py-auto hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-sky-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                         {/* prettier-ignore */}
-                        <svg aria-hidden="true" className="h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" ></path></svg>
+                        <svg aria-hidden="true" className="h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" ></path></svg>
                         <span className="sr-only">Search</span>
                     </button>
                 </div>

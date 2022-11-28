@@ -1,3 +1,2 @@
-import { setNextId } from "./setNextId";
-
-export { setNextId };
+export * from './setNextId';
+export * from './sleep';

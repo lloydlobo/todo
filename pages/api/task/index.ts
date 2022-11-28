@@ -4,18 +4,27 @@ import { data } from "../../../lib/data/data";
 /// import Task from "../../../models/Task";
 
 export type ServerDataTasks = {
-  data?: Task[];
-  message: string;
+    message: string;
+    status: number;
+    data?: Task[];
 };
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ServerDataTasks>
+    req: NextApiRequest,
+    res: NextApiResponse<ServerDataTasks>
 ) {
-  res.status(200).json({
-    data: data.tasks,
-    message: "Tasks fetched successfully",
-  });
+    try {
+        const { tasks } = data;
+        if (typeof tasks !== undefined) {
+            res.status(200).json({
+                status: 200,
+                message: "Tasks fetched successfully",
+                data: data.tasks,
+            });
+        }
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 // // const { method } = req;

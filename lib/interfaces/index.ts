@@ -1,7 +1,8 @@
 export type Task = {
-    _id: string;
+    readonly _id: string;
     id: number;
-    uuid?: string;
+    readonly uuid?: string;
+    slug: string;
     task: string;
     completed: boolean;
 };
@@ -24,9 +25,10 @@ export type Inputs = {
 };
 
 export type StoreActionsType = {
-    AddTasks: string;
-    RemoveTasks: string;
-    Reset: string;
+    readonly STORE_ADD_TASKS: string;
+    readonly STORE_REMOVE_TASKS: string;
+    readonly STORE_RESET_TASKS: string;
+    readonly STORE_TOGGLE_COMPLETED: string;
 };
 
 export type StoreState = {
@@ -36,10 +38,10 @@ export type StoreState = {
             name: string;
             slug: string;
         }[];
-        shippingAddress: {
+        shippingAddress?: {
             location: {};
         };
-        paymentMethod: string;
+        paymentMethod?: string;
     };
 };
 
@@ -54,4 +56,58 @@ export type Cartesian = {
     coordinates: { dy: number; dx: number };
     radian: number;
     degree: number;
+};
+
+export interface PokemonSpecies {
+    readonly name: string;
+    url: string;
+    id?: number;
+    url_name?: string;
+    url_image?: string;
+    url_background?: string;
+    url_background_image?: string;
+    url_sprites?: string;
+    url_sprites_image?: string;
+    url_sprites_background?: string;
+}
+
+// Index Signatures
+// Sometimes you don't know all the names of a type's properties ahead of time,
+// but you do know the shape of the values.
+// In those cases you can use an index signature to describe the types of
+// possible values, for example:
+// https://www.typescriptlang.org/docs/handbook/2/objects.html#index-signatures
+interface StringArray {
+    [index: number]: string;
+}
+interface NumberOrStringDictionary {
+    [index: string]: number | string;
+    length: number; // ok, length is a number
+    name: string; // ok, name is a string
+}
+// Tuple
+// https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types
+interface StringNumberPair {
+    // specialized properties
+    length: 2;
+    0: string;
+    1: number;
+
+    // Other 'Array<string | number>' members...
+    slice(start?: number, end?: number): Array<string | number>;
+}
+
+export interface PokemonCardProps {
+    readonly abilities: ReadonlyArray<string[]>;
+    readonly image: string;
+    readonly name: string | PokemonSpecies["name"];
+    readonly weight: number;
+    readonly xp: number;
+}
+export interface PokeAPIFetch {
+    (subString: string): Promise<any>
+}
+export interface PokeApiMethods<T> {
+    fetchPokemon(id: string): Promise<T>;
+    searchPokemons(query: string): Promise<string[]>;
 };

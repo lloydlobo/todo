@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 
 import { URL_API } from "../lib/constants";
+import { Counter } from "../lib/Counter";
 import { brand } from "../lib/data/brand";
 import { Inputs, Task, TaskUpdate } from "../lib/interfaces";
 import styles from "../styles/Home.module.css";
@@ -98,12 +99,14 @@ export function MainSection({
             </div>
 
             <section>
+                {/* Counter useReducer */}
+                {/* <Counter /> */}
                 <header>
                     <h2 className="sr-only">Tasks List</h2>
                 </header>
                 <div className="card">
                     {tasks.length ? (
-                        <div className=" flex flex-col items-center justify-center gap-4 rounded-lg p-4 shadow-lg ">
+                        <div className="flex flex-col items-center justify-center gap-4 rounded-lg p-4 shadow-lg ">
                             <TasksList
                                 tasks={tasks}
                                 onUpdateTask={handleUpdateTask}
@@ -202,7 +205,7 @@ export function TaskItem({
     ) : (
         <div className="view w-[60vw]  cursor-pointer place-self-stretch">
             {/* prettier-ignore */}
-            <div className="flex gap-2 rounded-full border-neutral-800 border w-full hover:bg-sky-500/90 px-4 ">
+            <div className="flex w-full gap-2 px-4 border rounded-full border-neutral-800 hover:bg-sky-500/90 ">
         {/* TODO: change handleTaskCompleted or look at todo-item handleToggleCompleted!!! */}
         <input checked={task.completed} onChange={handleTaskCompleted} className="toggle" type="checkbox" id="toggle" />
         <label onDoubleClick={handleDoubleClick} htmlFor="toggle" className="label" >

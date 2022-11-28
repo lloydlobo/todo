@@ -12,7 +12,8 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        ".vscode/": true,
+        "**/Thumbs.db": true,
+        ".vscode/": false,
         "jest.config.js": true,
         "jest.setup.js": true,
         "next-env.d.ts": true,
@@ -22,7 +23,6 @@
         "postcss.config.js": true,
         "prettier.config.js": true,
         "tsconfig.tsbuildinfo": true,
-        "tsconfig.json": true,
         ".eslintrc.json": true,
         ".hintrc": true,
         ".prettierrc": true,
@@ -86,5 +86,12 @@
             }
         ]
     },
-    "dotenv.enableAutocloaking": false
+    "dotenv.enableAutocloaking": false,
+    "exportall.config.folderListener": [
+        "/lib/utils",
+        "/lib/hooks/api",
+        "/lib/hooks",
+        "/lib/data",
+        "/lib/api"
+    ]
 }
