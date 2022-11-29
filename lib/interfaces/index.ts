@@ -71,6 +71,23 @@ export interface PokemonSpecies {
     url_sprites_background?: string;
 }
 
+export interface PokemonCardProps {
+    readonly abilities: ReadonlyArray<string[]>;
+    readonly image: string;
+    readonly name: string | PokemonSpecies["name"];
+    readonly weight: number;
+    readonly xp: number;
+}
+
+export interface PokeAPIFetch {
+    (subString: string): Promise<any>
+}
+
+export interface PokeApiMethods<T> {
+    fetchPokemon(id: string): Promise<T>;
+    searchPokemons(query: string): Promise<string[]>;
+};
+
 // Index Signatures
 // Sometimes you don't know all the names of a type's properties ahead of time,
 // but you do know the shape of the values.
@@ -85,6 +102,7 @@ interface NumberOrStringDictionary {
     length: number; // ok, length is a number
     name: string; // ok, name is a string
 }
+
 // Tuple
 // https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types
 interface StringNumberPair {
@@ -96,18 +114,3 @@ interface StringNumberPair {
     // Other 'Array<string | number>' members...
     slice(start?: number, end?: number): Array<string | number>;
 }
-
-export interface PokemonCardProps {
-    readonly abilities: ReadonlyArray<string[]>;
-    readonly image: string;
-    readonly name: string | PokemonSpecies["name"];
-    readonly weight: number;
-    readonly xp: number;
-}
-export interface PokeAPIFetch {
-    (subString: string): Promise<any>
-}
-export interface PokeApiMethods<T> {
-    fetchPokemon(id: string): Promise<T>;
-    searchPokemons(query: string): Promise<string[]>;
-};

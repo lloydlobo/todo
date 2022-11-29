@@ -11,7 +11,6 @@ let defaultContextValue: unknown;
 export const Store = createContext(defaultContextValue); // unknown.
 
 /**
- *
  * initialState populates history of store items.
  *
  * Use js-cookie package to use browser cookies.
@@ -19,11 +18,7 @@ export const Store = createContext(defaultContextValue); // unknown.
  * JS object, Cookies only store strings.
  * https://youtu.be/gJ5_Rx1S8zY
  */
-// const initialState: StoreState = {
-//     store: Cookies.get(COOKIE_STORE_TASKS)
-//         ? JSON.parse(Cookies.get(COOKIE_STORE_TASKS) as string)
-//         : { storeTasks: [], shippingAddress: {} },
-// };
+// const initialState: StoreState = { store: Cookies.get(COOKIE_STORE_TASKS) ? JSON.parse(Cookies.get(COOKIE_STORE_TASKS) as string) : { storeTasks: [], shippingAddress: {} }, };
 
 type ReducerStateCounter = {
     count: number;
@@ -57,9 +52,6 @@ function reducer(state: ReducerStateCounter, action: any) {
             return state;
     }
 }
-
-// import { combineReducers } from "redux";
-// const reducers = combineReducers({count: reduce});
 
 export function Counter() {
     const [state, dispatch] = useReducer(reducer, initialState);

@@ -7,8 +7,8 @@ export function Footer() {
     const currentYear = new Date().getFullYear();
     return (
         <footer className={"grid place-content-center py-4"}>
-            <div className="flex items-center gap-2 text-xs copy place-self-center opacity-70">
-                <Link href={"/"} className="text-sm font-bold year">
+            <div className="copy flex items-center gap-2 place-self-center text-xs opacity-70">
+                <Link href={"/"} className="year text-sm font-bold">
                     {brand.name}
                 </Link>
                 <div className="copy-text">Copyright &copy;{currentYear}</div>
@@ -27,9 +27,9 @@ export function Footer() {
                     height={16}
                 />
             </a>
-            <div className="text-gray-400 bg-gray-900 body-font">
-                <div className="container flex flex-col items-center px-5 py-8 mx-auto sm:flex-row">
-                    <a className="flex items-center justify-center font-medium text-white title-font md:justify-start">
+            <div className="body-font bg-gray-900 text-gray-400">
+                <div className="container mx-auto flex flex-col items-center px-5 py-8 sm:flex-row">
+                    <a className="title-font flex items-center justify-center font-medium text-white md:justify-start">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -37,7 +37,7 @@ export function Footer() {
                             stroke-linecap="round"
                             stroke-linejoin="round"
                             stroke-width="2"
-                            className="w-10 h-10 p-2 text-white bg-indigo-500 rounded-full"
+                            className="h-10 w-10 rounded-full bg-indigo-500 p-2 text-white"
                             viewBox="0 0 24 24"
                         >
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
@@ -55,14 +55,14 @@ export function Footer() {
                             @knyttneve
                         </a>
                     </p>
-                    <span className="inline-flex justify-center mt-4 sm:ml-auto sm:mt-0 sm:justify-start">
+                    <span className="mt-4 inline-flex justify-center sm:ml-auto sm:mt-0 sm:justify-start">
                         <a className="text-gray-400">
                             <svg
                                 fill="currentColor"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 stroke-width="2"
-                                className="w-5 h-5"
+                                className="h-5 w-5"
                                 viewBox="0 0 24 24"
                             >
                                 <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
@@ -74,7 +74,7 @@ export function Footer() {
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 stroke-width="2"
-                                className="w-5 h-5"
+                                className="h-5 w-5"
                                 viewBox="0 0 24 24"
                             >
                                 <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
@@ -87,7 +87,7 @@ export function Footer() {
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 stroke-width="2"
-                                className="w-5 h-5"
+                                className="h-5 w-5"
                                 viewBox="0 0 24 24"
                             >
                                 <rect
@@ -108,7 +108,7 @@ export function Footer() {
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 stroke-width="0"
-                                className="w-5 h-5"
+                                className="h-5 w-5"
                                 viewBox="0 0 24 24"
                             >
                                 <path

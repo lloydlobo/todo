@@ -105,7 +105,7 @@ export default function Home({ tasks }: { tasks: Task[] }) {
     };
     return tasks ? (
         <div className={styles.container}>
-            <Header />
+            <Header title={"Home"} />
             <Navbar />
             <div className="hero grid min-h-screen place-content-center items-center text-center">
                 <MyComponent />

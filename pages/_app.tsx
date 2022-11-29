@@ -1,3 +1,4 @@
+import { Roboto } from "@next/font/google";
 import {
     Hydrate,
     QueryClient,
@@ -6,8 +7,12 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import { useState } from "react";
-import { CounterProvider, StoreProvider } from "../lib/Counter";
+
+import { CounterProvider } from "../lib/Counter";
 import "../styles/globals.css";
+
+// https://nextjs.org/docs/basic-features/font-optimization#usage
+const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 // https://tanstack.com/query/v4/docs/guides/ssr#using-hydration
 export default function App({ Component, pageProps }: AppProps) {
@@ -23,7 +28,14 @@ export default function App({ Component, pageProps }: AppProps) {
             pages/pokemon/[id].tsx page. */}
             <Hydrate state={pageProps.dehydratedState}>
                 <CounterProvider>
-                    <Component {...pageProps} />
+                    <>
+                        <style jsx global>{`
+                            html {
+                                font-family: ${roboto.style.fontFamily};
+                            }
+                        `}</style>
+                        <Component {...pageProps} />
+                    </>
                 </CounterProvider>
             </Hydrate>
             {/* Devtools work in app's bundle only when

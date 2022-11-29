@@ -29,13 +29,13 @@ export function Navbar() {
     return (
         <nav className="absolute">
             <div className="fixed left-0 w-full bg-black/50">
-                <div className="p-4 border-b-2 shadow-md navbar border-gray-900/80 shadow-slate-900/10 backdrop-blur-lg">
+                <div className="navbar border-b-2 border-gray-900/80 p-4 shadow-md shadow-slate-900/10 backdrop-blur-lg">
                     <ul
                         title="navitems"
                         className="flex items-center justify-between gap-x-4"
                     >
-                        <li className="mr-auto text-lg font-bold logo navbar-left">
-                            {brand.name}
+                        <li className="logo navbar-left mr-auto text-lg font-bold">
+                            <Link href={"/"}>{brand.name}</Link>
                         </li>
                         <li className="">
                             <Search />
@@ -43,7 +43,7 @@ export function Navbar() {
                         <li className="grid place-content-end">
                             <ul
                                 title="navitems-end"
-                                className="grid items-baseline grid-flow-col gap-4 text-xs list place-content-center"
+                                className="list grid grid-flow-col place-content-center items-baseline gap-4 text-xs"
                             >
                                 <li className=" place-self-center">
                                     <MenuDropdown />

@@ -1,23 +1,46 @@
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { GetStaticPaths } from "next";
-import { NextRouter, useRouter } from "next/router";
+import { NextRouter, Router, useRouter } from "next/router";
+import { z } from "zod";
+import { Layout } from "../../components/layout";
+
+import { TaskCard } from "../../components/task";
 import { fetchTask } from "../../lib/api";
 import { TASK_API_QUERY_KEY } from "../../lib/constants";
-import { z } from "zod";
 
-export function TaskCard({ task }: { task: string }) {
-    return <div className="task">{task}</div>;
+export type SchemaSearch = {
+    task?: string;
+    id: number;
+    slug?: string;
+};
+
+// Creating a schema for search input query.
+export const SearchSchema = z.object({
+    task: z.string().min(5).max(99),
+    id: z.number(),
+    slug: z.string().url(),
+});
+
+// https://github.com/colinhacks/zod/tree/6ce18f3de2ce29c3c3eb35ac08983d181311b40e#strings
+export function validateRouterQuery(input: any | unknown | string): {
+    data: string;
+    error: Error;
+} {
+    const stringScheme = z.string();
+    const validData = { id: input.id };
+
+    const results = stringScheme.safeParse(validData.id);
+    if (!results.success) {
+        const fmtErrors = results.error.format();
+        validData.id = Number(fmtErrors._errors.join(", ")) || Number("");
+    }
+
+    return { data: validData.id?.toString(), error: new Error("") };
 }
+
 export default function TaskPage() {
     const router: NextRouter = useRouter();
-
-    // https://github.com/colinhacks/zod/tree/6ce18f3de2ce29c3c3eb35ac08983d181311b40e#strings
-    const isString: z.ZodString = z.string();
-
-    //// const taskID = isString.parse(router.query?.id);
-    const taskID = typeof router.query?.id === "string" ? router.query.id : "";
-
-    const isUndefined = z.undefined();
+    const { data: taskID, error } = validateRouterQuery(router.query);
 
     const {
         isSuccess,
@@ -30,20 +53,22 @@ export default function TaskPage() {
         { enabled: taskID?.length > 0, staleTime: Infinity }
     );
 
+    const isUndefined = z.undefined();
     //// const isUndefinedTask = isUndefined.parse(task);
     //// if (true || !isUndefinedTask) {
     const isUndefinedTask = false;
 
     if (isSuccess) {
         return (
-            <div className="task">
-                {task.task}
-                <TaskCard task={task.task} />
-            </div>
+            <Layout title={task}>
+                <div className="task">
+                    <TaskCard task={task.task} />
+                </div>
+            </Layout>
         );
     }
     if (isLoading)
-        return <div className="text-center text-info">Loading...</div>;
+        return <div className="text-info text-center">Loading...</div>;
     if (isError)
         return (
             <div className="text-errcerterlex tei-foter">

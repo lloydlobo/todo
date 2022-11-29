@@ -69,7 +69,7 @@ export function MainSection({
     ////   const [tasks, setTasks] = useState(props.tasks);
     const [taskInput, setTaskInput] = useState<Task | any>({ task: "" });
     return (
-        <main className={styles.main}>
+        <div className={styles.main}>
             <div className="card">
                 <div className="form">
                     <div className="form-input grid w-full place-content-center gap-4">
@@ -141,7 +141,7 @@ export function MainSection({
                 </div>
             </section>
             <section className="footer"></section>
-        </main>
+        </div>
     );
 }
 

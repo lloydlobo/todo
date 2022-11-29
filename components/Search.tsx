@@ -119,7 +119,7 @@ export function Search(): JSX.Element {
                     </div>
 
                     <div className="absolute">
-                        <ul className="grid gap-4 space-x-0 space-y-4 translate-y-4 pointer-events-none result">
+                        <ul className="result pointer-events-none grid translate-y-4 gap-4 space-x-0 space-y-4">
                             {results.length > 0 &&
                             typeof results !== undefined ? (
                                 results?.map((result, index) => (
@@ -152,10 +152,10 @@ export function Search(): JSX.Element {
                             type="button"
                             aria-label="Clear Search Input"
                             onClick={clearSearch}
-                            className="absolute top-0 right-0 z-30 items-center h-8 text-xs -translate-x-8 close after:absolute "
+                            className="close absolute top-0 right-0 z-30 h-8 -translate-x-8 items-center text-xs after:absolute "
                         >
-                            <div className="w-4 h-4 rounded-sm hover:bg-slate-800">
-                                <XMarkIcon className="absolute items-center w-3 h-3 after:link " />
+                            <div className="h-4 w-4 rounded-sm hover:bg-slate-800">
+                                <XMarkIcon className="after:link absolute h-3 w-3 items-center " />
                             </div>
                             {/* https://versoly.com/versoly-ui/getting-started/quickstart */}
                             {/* [data-toggle="dropdown"] */}
@@ -175,7 +175,7 @@ export function Search(): JSX.Element {
                         title="search"
                         role="button"
                         type="submit"
-                        className="absolute top-0 right-0 h-full px-1 text-xs font-medium text-white bg-blue-700 border border-blue-700 rounded-r-lg shadow-inner py-auto hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-sky-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="py-auto absolute top-0 right-0 h-full rounded-r-lg border border-blue-700 bg-blue-700 px-1 text-xs font-medium text-white shadow-inner hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-sky-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                         {/* prettier-ignore */}
                         <svg aria-hidden="true" className="h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" ></path></svg>

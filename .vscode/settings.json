@@ -92,6 +92,8 @@
         "/lib/hooks/api",
         "/lib/hooks",
         "/lib/data",
-        "/lib/api"
+        "/lib/api",
+        "/components/task",
+        "/components/layout"
     ]
 }
