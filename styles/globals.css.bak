@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
 
 html,
 body {
@@ -30,6 +30,6 @@ a {
 }
 
 .progress-bar {
-    @apply fixed top-0 left-0 right-0 h-1 bg-sky-700;
+    @apply bg-sky-700 fixed top-0 left-0 right-0 h-1;
     transform-origin: 0% !important;
 }

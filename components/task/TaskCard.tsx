@@ -1,4 +1,4 @@
-import { motion, MotionConfig } from "framer-motion";
+import { motion } from "framer-motion";
 
 export function TaskCard({ task }: { task: string }) {
     return (
@@ -16,18 +16,21 @@ export function TaskCard({ task }: { task: string }) {
                         damping: 20,
                     }}
                     whileTap={{
-                        scale: 0.8,
+                        // scale: 0.8,
                         borderRadius: "100%",
                     }}
-                    whileHover={{ scale: 1.1 }}
+                    // whileHover={{ scale: 1.1 }}
                 >
-                    <div className="card prose h-fit rounded-md bg-black/40  p-8 text-inherit shadow-lg shadow-slate-700/40 backdrop-blur-lg prose-h1:text-inherit">
+                    <div className="card text-inherit shadow-slate-700/40 prose-h1:text-inherit prose  h-fit rounded-md bg-black/40 p-8 shadow-lg backdrop-blur-lg">
                         <header className="card-header">
                             <h1 className="task">{task}</h1>
                         </header>
 
                         <div className="card-body">
                             <p className="text-sm">{task}</p>
+                        </div>
+                        <div className="card-actions">
+                            <button>Hello</button>
                         </div>
                     </div>
                 </motion.div>

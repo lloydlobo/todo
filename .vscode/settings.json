@@ -20,7 +20,7 @@
         "next.config.js": true,
         "package-lock.json": true,
         "playwright.config.ts": true,
-        "postcss.config.js": true,
+        "postcss.config.js": false,
         "prettier.config.js": true,
         "tsconfig.tsbuildinfo": true,
         ".eslintrc.json": true,

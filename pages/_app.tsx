@@ -7,16 +7,23 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import { useState } from "react";
-
 import { CounterProvider } from "../lib/Counter";
-import "../styles/globals.css";
-
+import theme from "../src/theme";
+import "../styles/globals.scss";
+// import createEmotionCache from "../src/createEmotionCache";
 // https://nextjs.org/docs/basic-features/font-optimization#usage
+// Client-side cache, shared for the whole session of the user in the browser.
+// const clientSideEmotionCache = createEmotionCache();
+// https://github.com/mui/material-ui/blob/master/examples/nextjs-with-typescript/pages/_app.tsx
+interface MyAppProps extends AppProps {
+    // emotionCache?: EmotionCache;
+}
+
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
-// https://tanstack.com/query/v4/docs/guides/ssr#using-hydration
 export default function App({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
+    //tanstack.com/query/v4/docs/guides/ssr#using-hydration
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -29,12 +36,14 @@ export default function App({ Component, pageProps }: AppProps) {
             <Hydrate state={pageProps.dehydratedState}>
                 <CounterProvider>
                     <>
+                        {/* <ThemeProvider theme={theme}> */}
                         <style jsx global>{`
                             html {
                                 font-family: ${roboto.style.fontFamily};
                             }
                         `}</style>
                         <Component {...pageProps} />
+                        {/* </ThemeProvider> */}
                     </>
                 </CounterProvider>
             </Hydrate>

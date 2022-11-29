@@ -110,7 +110,7 @@ export function Search(): JSX.Element {
                             type="search"
                             id="default-search"
                             onChange={onChange}
-                            className="block w-full rounded-lg border border-zinc-300 bg-gray-50 py-1 pl-8 text-xs text-gray-900 transition-all delay-1000 ease-linear focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-zinc-900/30 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 xl:focus:w-[40vw]"
+                            className="border-zinc-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-zinc-900/30 dark:placeholder-gray-400 block w-full rounded-lg border py-1 pl-8 text-xs transition-all delay-1000 ease-linear focus:border-blue-500 focus:ring-blue-500 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500 xl:focus:w-[40vw]"
                             placeholder="Search tasks…"
                             aria-label="search"
                             required
@@ -119,17 +119,17 @@ export function Search(): JSX.Element {
                     </div>
 
                     <div className="absolute">
-                        <ul className="result pointer-events-none grid translate-y-4 gap-4 space-x-0 space-y-4">
+                        <div className="result grid-list pointer-events-none translate-y-4 gap-4 space-x-0 space-y-4">
                             {results.length > 0 &&
                             typeof results !== undefined ? (
                                 results?.map((result, index) => (
-                                    <li
+                                    <div
                                         key={`${index}-${search}`}
-                                        className="absolute grid gap-4"
+                                        className="text-amber-800 bg-white"
                                         aria-label="Search result"
                                     >
                                         {result}
-                                    </li>
+                                    </div>
                                 ))
                             ) : (
                                 <li
@@ -139,7 +139,7 @@ export function Search(): JSX.Element {
                                     No results found
                                 </li>
                             )}
-                        </ul>
+                        </div>
                     </div>
 
                     {/* errors will return when field validation fails  */}
@@ -154,7 +154,7 @@ export function Search(): JSX.Element {
                             onClick={clearSearch}
                             className="close absolute top-0 right-0 z-30 h-8 -translate-x-8 items-center text-xs after:absolute "
                         >
-                            <div className="h-4 w-4 rounded-sm hover:bg-slate-800">
+                            <div className="hover:bg-slate-800 h-4 w-4 rounded-sm">
                                 <XMarkIcon className="after:link absolute h-3 w-3 items-center " />
                             </div>
                             {/* https://versoly.com/versoly-ui/getting-started/quickstart */}
@@ -175,7 +175,7 @@ export function Search(): JSX.Element {
                         title="search"
                         role="button"
                         type="submit"
-                        className="py-auto absolute top-0 right-0 h-full rounded-r-lg border border-blue-700 bg-blue-700 px-1 text-xs font-medium text-white shadow-inner hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-sky-700 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="py-auto dark:bg-sky-700 absolute top-0 right-0 h-full rounded-r-lg border border-blue-700 bg-blue-700 px-1 text-xs font-medium text-white shadow-inner hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                         {/* prettier-ignore */}
                         <svg aria-hidden="true" className="h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" ><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" ></path></svg>

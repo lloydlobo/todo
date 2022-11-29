@@ -1,0 +1,66 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url("https://use.typekit.net/rcr1opg.css");
+
+@import "./buttons.scss";
+@import "./mixins.scss";
+@import "./ui.scss";
+@import "./tags.scss";
+
+// Typekit is a provider of webfonts. They probably are the only service that
+// benefits from having the script in the head, because it blocks rendering
+// while the fonts download, thus preventing a FOUT (flash of unstyled text)
+// The script works by fetching some css files that contain the fonts in base64
+// encoding.
+
+// https://github.com/fireship-io/fireship.io/blob/master/styles/app.scss
+
+html {
+    display: block;
+    font-size: 13px;
+    color-scheme: dark;
+    @media (min-width: 1024px) {
+        font-size: 16px;
+    }
+}
+
+body {
+    @apply prose prose-invert dark:bg-gray7 dark:prose-invert dark:text-gray1;
+    background: linear-gradient(
+        176deg,
+        rgba(18, 24, 28, 1) 50%,
+        rrgab(32, 39, 85, 1) 100%
+    );
+    min-height: 100vh;
+    background-attachment: fixed;
+    @include scrollbar;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-display font-normal;
+}
+
+svg {
+    width: auto;
+}
+
+.container {
+    @apply mx-auto max-w-screen-2xl px-3 md:px-8;
+}
+
+.grid-list {
+    @apply grid list-none auto-cols-max grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+}
+
+video-player {
+    iframe {
+        @apply absolute top-0 left-0 h-full w-full;
+    }
+}

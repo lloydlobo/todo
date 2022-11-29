@@ -14,7 +14,7 @@ export function Layout({
         <>
             <Header title={title} />
             <Navbar />
-            <main>{children}</main>
+            <main className="container">{children}</main>
             <Footer />
         </>
     );

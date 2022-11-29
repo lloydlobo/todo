@@ -11,7 +11,7 @@ import { URL_API } from "../lib/constants";
 import { Counter } from "../lib/Counter";
 import { brand } from "../lib/data/brand";
 import { Inputs, Task, TaskUpdate } from "../lib/interfaces";
-import styles from "../styles/Home.module.css";
+// import styles from "../styles/Home.module.css";
 
 // If i were to start in with fp-ts in TypeScript : RyanDavisDev
 // Gets rid of all mutable variables, for loop.
@@ -69,7 +69,8 @@ export function MainSection({
     ////   const [tasks, setTasks] = useState(props.tasks);
     const [taskInput, setTaskInput] = useState<Task | any>({ task: "" });
     return (
-        <div className={styles.main}>
+        // <div className={styles.main}>
+        <div className={""}>
             <div className="card">
                 <div className="form">
                     <div className="form-input grid w-full place-content-center gap-4">
@@ -269,7 +270,7 @@ export const TaskTextInput = ({
             />
             <label
                 htmlFor="username"
-                className="pointer-events-none absolute left-0 -top-3 mx-1 cursor-text bg-inherit px-1 text-sm text-gray-500 transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:-top-3 peer-focus:text-sm peer-focus:text-sky-600"
+                className="bg-inherit text-gray-500 peer-placeholder-shown:text-gray-500 peer-focus:text-sky-600 pointer-events-none absolute left-0 -top-3 mx-1 cursor-text px-1 text-sm transition-all peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-focus:-top-3 peer-focus:text-sm"
             >
                 {placeholder}
             </label>
@@ -345,15 +346,15 @@ export function TaskListFooter({
 export function InputShell({ children }: { children: ReactNode }) {
     return (
         <div className="w-[60vw] rounded-lg bg-black/90 p-4">
-            <div className="relative bg-inherit">{children}</div>
+            <div className="bg-inherit relative">{children}</div>
         </div>
     );
 }
 
 export function ButtonShell({ children }: { children: ReactNode }) {
     return (
-        <div className="group relative overflow-hidden rounded-lg bg-gray-200 px-6 py-3 [transform:translateZ(0)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:-translate-x-full before:bg-sky-600 before:transition before:duration-500 before:ease-in-out hover:cursor-pointer hover:before:translate-x-0">
-            <span className="relative text-black transition duration-500 ease-in-out group-hover:text-gray-200">
+        <div className="bg-gray-200 before:bg-sky-600 group relative overflow-hidden rounded-lg px-6 py-3 [transform:translateZ(0)] before:absolute before:bottom-0 before:left-0 before:h-full before:w-full before:-translate-x-full before:transition before:duration-500 before:ease-in-out hover:cursor-pointer hover:before:translate-x-0">
+            <span className="group-hover:text-gray-200 relative text-black transition duration-500 ease-in-out">
                 {children}
             </span>
         </div>

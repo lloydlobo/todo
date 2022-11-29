@@ -15,7 +15,7 @@ import { Task, TaskUpdate } from "../lib/interfaces";
 import { setNextId } from "../lib/utils";
 
 import { motion } from "framer-motion";
-import styles from "../styles/Home.module.css";
+// import styles from "../styles/Home.module.css";
 
 export const MyComponent = () => (
     <motion.div
@@ -104,7 +104,8 @@ export default function Home({ tasks }: { tasks: Task[] }) {
         console.log(res);
     };
     return tasks ? (
-        <div className={styles.container}>
+        // <div className={styles.container}>
+        <div>
             <Header title={"Home"} />
             <Navbar />
             <div className="hero grid min-h-screen place-content-center items-center text-center">

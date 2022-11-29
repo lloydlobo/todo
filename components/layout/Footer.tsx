@@ -3,6 +3,20 @@ import Image from "next/image";
 import React from "react";
 import { brand } from "../../lib/data/brand";
 
+function Copyright() {
+    return (
+        <>
+            {/* <Typography variant="body2" color="text.secondary" align="center"> */}
+            {"Copyright © "}
+            <Link color="inherit" href="https://mui.com/">
+                Your Website
+            </Link>{" "}
+            {new Date().getFullYear()}
+            {"."}
+            {/* </Typography> */}
+        </>
+    );
+}
 export function Footer() {
     const currentYear = new Date().getFullYear();
     return (
@@ -11,6 +25,7 @@ export function Footer() {
                 <Link href={"/"} className="year text-sm font-bold">
                     {brand.name}
                 </Link>
+                <Copyright />
                 <div className="copy-text">Copyright &copy;{currentYear}</div>
             </div>
             <a

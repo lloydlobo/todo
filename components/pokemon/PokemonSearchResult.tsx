@@ -17,7 +17,7 @@ export function PokemonSearchResult({
     pokemons: string[];
 }): JSX.Element {
     return pokemons.length > 0 ? (
-        <div className="search-grid">
+        <div className="grid-list shadow-4xl rounded-md bg-gray7/10 py-4">
             {pokemons.map((pokemon) => (
                 <Link href={`/pokemon/${pokemon}`} key={pokemon}>
                     <div className="pokemon-card">{pokemon}</div>
