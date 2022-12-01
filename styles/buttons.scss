@@ -31,6 +31,9 @@
     &-transparent {
         @apply bg-black bg-opacity-20 text-white;
     }
+    &-ghost {
+        @apply bg-transparant bg-opacity-0 text-white shadow-none;
+    }
 
     &-gray {
         @apply bg-gray5 text-white hover:bg-gray4;

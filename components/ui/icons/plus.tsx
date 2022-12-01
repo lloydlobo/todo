@@ -1,12 +1,12 @@
 /**
- * Cross Icon.
+ * Plus Icon.
  *
  * @param {object} props
  * @param {string} [props.className]
  * @returns {JSX.Element}
- * @sources google.com
+ * @sources heroicons.com | plus.
  */
-export function CrossIcon({ className }: { className?: string }): JSX.Element {
+export function PlusIcon({ className }: { className?: string }): JSX.Element {
     return (
         <svg
             focusable="false"
@@ -17,7 +17,11 @@ export function CrossIcon({ className }: { className?: string }): JSX.Element {
             strokeWidth={1.5}
             stroke="currentColor"
         >
-            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+            />
         </svg>
     );
 }

@@ -1,6 +1,18 @@
 .box {
     @apply rounded-r-lg border-l-4 border-gray5 bg-gray6 p-6 shadow-lg;
 
+    &-card {
+        @apply rounded-lg border-l-0 p-2;
+    }
+
+    &-rect {
+        @apply rounded-none border-l-0 p-2;
+    }
+
+    &-transparent {
+        @apply bg-none;
+    }
+
     &-green {
         @apply border-green-500;
     }
