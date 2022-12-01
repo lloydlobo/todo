@@ -1,10 +1,14 @@
-import { Counter } from "../lib/Counter";
+import { DivderPill, Layout } from "../components";
 
 export default function About() {
     return (
-        <div>
-            <h1>About Page</h1>
-            <Counter />
-        </div>
+        <Layout title="About">
+            <section title="hero">
+                <header>
+                    <h1 className="text-center">About Page</h1>
+                    <DivderPill />
+                </header>
+            </section>
+        </Layout>
     );
 }

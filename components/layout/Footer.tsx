@@ -1,147 +1,43 @@
 import Link from "next/link";
-import Image from "next/image";
-import React from "react";
-import { brand } from "../../lib/data/brand";
+import { Copyright } from "../ui";
 
-function Copyright() {
-    return (
-        <>
-            {/* <Typography variant="body2" color="text.secondary" align="center"> */}
-            {"Copyright © "}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-            {/* </Typography> */}
-        </>
-    );
-}
 export function Footer() {
-    const currentYear = new Date().getFullYear();
     return (
-        <footer className={"grid place-content-center py-4"}>
-            <div className="copy flex items-center gap-2 place-self-center text-xs opacity-70">
-                <Link href={"/"} className="year text-sm font-bold">
-                    {brand.name}
-                </Link>
-                <Copyright />
-                <div className="copy-text">Copyright &copy;{currentYear}</div>
-            </div>
-            <a
-                href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                title="Logo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden"
+        <div className="footer container my-6 mx-auto w-screen bg-gray7/[0.02] p-8 text-center text-gray3 backdrop-blur-lg">
+            <div className="w-24 h-1 mx-auto my-12 rounded-full bg-gray1 bg-gradient-to-r from-gray5 to-gray4 " />
+            <div
+                title="footer-items"
+                className="grid w-full place-content-center"
             >
-                <Image
-                    src="/vercel.svg"
-                    alt="Vercel Logo"
-                    width={72}
-                    height={16}
-                />
-            </a>
-            <div className="body-font bg-gray-900 text-gray-400">
-                <div className="container mx-auto flex flex-col items-center px-5 py-8 sm:flex-row">
-                    <a className="title-font flex items-center justify-center font-medium text-white md:justify-start">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            className="h-10 w-10 rounded-full bg-indigo-500 p-2 text-white"
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
-                        <span className="ml-3 text-xl">Tailblocks</span>
-                    </a>
-                    <p className="mt-4 text-sm text-gray-400 sm:ml-4 sm:mt-0 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:pl-4">
-                        © 2020 Tailblocks —
-                        <a
-                            href="https://twitter.com/knyttneve"
-                            className="ml-1 text-gray-500"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            @knyttneve
+                <div className="pt-10">
+                    <div className="mx-auto flex gap-[1ch] py-3">
+                        Find an issue with this page?
+                        <a href="#" className="link">
+                            Fix it on GitHub
                         </a>
-                    </p>
-                    <span className="mt-4 inline-flex justify-center sm:ml-auto sm:mt-0 sm:justify-start">
-                        <a className="text-gray-400">
-                            <svg
-                                fill="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                className="h-5 w-5"
-                                viewBox="0 0 24 24"
-                            >
-                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                            </svg>
+                    </div>
+                    <div className="flex items-center justify-center mx-auto my-2">
+                        <a href="#" className="link">
+                            <i className="inline-block w-6 mx-2">
+                                {/* prettier-ignore */}
+                                <svg
+                                    className="svggithub" aria-hidden="true" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"
+                                >
+                                    <path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.32-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" ></path>
+                                </svg>
+                            </i>
                         </a>
-                        <a className="ml-3 text-gray-400">
-                            <svg
-                                fill="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                className="h-5 w-5"
-                                viewBox="0 0 24 24"
-                            >
-                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                            </svg>
-                        </a>
-                        <a className="ml-3 text-gray-400">
-                            <svg
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                className="h-5 w-5"
-                                viewBox="0 0 24 24"
-                            >
-                                <rect
-                                    width="20"
-                                    height="20"
-                                    x="2"
-                                    y="2"
-                                    rx="5"
-                                    ry="5"
-                                ></rect>
-                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-                            </svg>
-                        </a>
-                        <a className="ml-3 text-gray-400">
-                            <svg
-                                fill="currentColor"
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="0"
-                                className="h-5 w-5"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    stroke="none"
-                                    d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
-                                ></path>
-                                <circle
-                                    cx="4"
-                                    cy="4"
-                                    r="2"
-                                    stroke="none"
-                                ></circle>
-                            </svg>
-                        </a>
-                    </span>
+                    </div>
+                    <div className="py-3 mx-auto">
+                        <h6 className="font-bold uppercase">Helpful Links</h6>
+                        <div className="inline-flex gap-[1ch] py-3">
+                            <Link href="/about">About</Link>|
+                            <Link href="Tasks">Tasks</Link>
+                        </div>
+                    </div>
+                    <Copyright />
                 </div>
             </div>
-            GitHub
-        </footer>
+        </div>
     );
 }

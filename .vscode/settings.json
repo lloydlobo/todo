@@ -94,6 +94,13 @@
         "/lib/data",
         "/lib/api",
         "/components/task",
-        "/components/layout"
+        "/components/layout",
+        "/components",
+        "/components/ui/icons",
+        "/components/ui",
+        "/components/todos",
+        "/lib/interfaces",
+        "/components/shared",
+        "/lib/util"
     ]
 }

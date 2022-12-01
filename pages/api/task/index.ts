@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Task } from "../../../lib/interfaces";
-import { data } from "../../../lib/data/data";
+// import Task from "../../../models/Task";
 /// import Task from "../../../models/Task";
 
 export type ServerDataTasks = {

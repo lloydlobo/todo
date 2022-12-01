@@ -28,8 +28,3 @@ a {
         background: black;
     }
 }
-
-.progress-bar {
-    @apply bg-sky-700 fixed top-0 left-0 right-0 h-1;
-    transform-origin: 0% !important;
-}

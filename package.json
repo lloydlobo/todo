@@ -12,6 +12,7 @@
         "test:e2e": "playwright test"
     },
     "dependencies": {
+        "@headlessui/react": "^1.7.4",
         "@hookform/resolvers": "^2.9.10",
         "@next/font": "^13.0.5",
         "@radix-ui/react-dropdown-menu": "^2.0.1",

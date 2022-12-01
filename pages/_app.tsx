@@ -1,4 +1,10 @@
-import { Roboto } from "@next/font/google";
+import {
+    Figtree,
+    Inter,
+    Nunito,
+    PT_Sans_Caption,
+    Roboto,
+} from "@next/font/google";
 import {
     Hydrate,
     QueryClient,
@@ -6,8 +12,8 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { useState } from "react";
-import { CounterProvider } from "../lib/Counter";
 import theme from "../src/theme";
 import "../styles/globals.scss";
 // import createEmotionCache from "../src/createEmotionCache";
@@ -20,6 +26,10 @@ interface MyAppProps extends AppProps {
 }
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
+const inter = Inter({ weight: "400", subsets: ["latin"] });
+const figtree = Figtree({ weight: "700", subsets: ["latin"] });
+const ptSansCaption = PT_Sans_Caption({ weight: "700", subsets: ["latin"] });
+const nunito = Nunito({ weight: "1000", subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
@@ -34,18 +44,26 @@ export default function App({ Component, pageProps }: AppProps) {
             from the getStaticProps method that we'll be using for the
             pages/pokemon/[id].tsx page. */}
             <Hydrate state={pageProps.dehydratedState}>
-                <CounterProvider>
-                    <>
-                        {/* <ThemeProvider theme={theme}> */}
-                        <style jsx global>{`
-                            html {
-                                font-family: ${roboto.style.fontFamily};
-                            }
-                        `}</style>
-                        <Component {...pageProps} />
-                        {/* </ThemeProvider> */}
-                    </>
-                </CounterProvider>
+                {/* <CounterProvider> */}
+                <>
+                    {/* <ThemeProvider theme={theme}> */}
+                    <style jsx global>{`
+                        html {
+                            font-family: ${inter.style.fontFamily};
+                        }
+                        h1,
+                        h2,
+                        h3,
+                        h4,
+                        h5,
+                        h6 {
+                            font-family: ${nunito.style.fontFamily};
+                        }
+                    `}</style>
+                    <Component {...pageProps} />
+                    {/* </ThemeProvider> */}
+                </>
+                {/* </CounterProvider> */}
             </Hydrate>
             {/* Devtools work in app's bundle only when
             process.env.NODE_ENV === 'development' */}

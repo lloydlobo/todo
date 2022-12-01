@@ -1,171 +1,57 @@
-import { motion, useScroll, useSpring } from "framer-motion";
 import Link from "next/link";
-
-import { brand } from "../../lib/data/brand";
-import { MenuDropdown } from "../interactive";
-import { Search } from "../Search";
-
-// https://codesandbox.io/s/framer-motion-usescroll-with-spring-smoothing-75rw1l?from-embed=&file=%2Fsrc%2FApp.tsx
-export const ProgressIndicator = () => {
-    const { scrollYProgress } = useScroll();
-    const scaleX = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001,
-    });
-
-    return (
-        <motion.path
-            d="M 0, 20 a 20, 20 0 1,0 40,0 a 20, 20 0 1,0 -40,0"
-            style={{
-                scaleX: scaleX,
-            }} // style={{ pathLength: scrollYProgress }}
-            className="progress-bar "
-        />
-    );
-};
+import { SearchModal } from "../shared";
+import { splitBrandName } from "../../lib/util";
 
 export function Navbar() {
+    const { b1, b2 } = splitBrandName();
+
     return (
-        <nav className="absolute">
-            <div className="fixed left-0 w-full bg-black/50">
-                <div className="navbar border-b-2 border-gray-900/80 p-4 shadow-md shadow-slate-900/10 backdrop-blur-lg">
-                    <ul
-                        title="navitems"
-                        className="flex items-center justify-between gap-x-4"
+        <div className="container top-0 flex justify-between w-full py-6 shadow-sm navbar bg-gray7 md:p-8">
+            <div className="flex-1 mr-auto">
+                <Link href="/" className="text-2xl logo font-display">
+                    <span>{b1}</span>
+                    <span className="gradient-slide">{b2}</span>
+                </Link>
+            </div>
+
+            <div className="nav-items flex items-center justify-center gap-[1.5ch] px-4 align-middle">
+                <div className="grid items-center grid-flow-col gap-8 px-2">
+                    <Link
+                        href="/api"
+                        className="rounded-md border border-green-500 px-2 py-1 font-display text-base font-bold text-green-400 no-underline hover:no-underline hover:drop-shadow-[0_0_9px_rgba(34,197,94,0.9)]"
                     >
-                        <li className="logo navbar-left mr-auto text-lg font-bold">
-                            <Link href={"/"}>{brand.name}</Link>
-                        </li>
-                        <li className="">
-                            <Search />
-                        </li>
-                        <li className="grid place-content-end">
-                            <ul
-                                title="navitems-end"
-                                className="list grid grid-flow-col place-content-center items-baseline gap-4 text-xs"
-                            >
-                                <li className=" place-self-center">
-                                    <MenuDropdown />
-                                </li>
-                                <li>
-                                    <Link href="/about" className="link">
-                                        About
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/api/task" className="link">
-                                        TaskApi
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                        API
+                    </Link>
+                    <Link href="/docs" className="font-bold lowercase">
+                        Docs
+                    </Link>
+                    <Link href="/todos" className="font-bold lowercase">
+                        Todos
+                    </Link>
+                </div>
+                <div className="search">
+                    <SearchModal />
+                </div>
+                <div className="login">
+                    <a className="hidden login-btn btn sm:flex">Login</a>
+                    <div className="login-icon sm:hidden">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={2.5}
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+                            />
+                        </svg>
+                    </div>
                 </div>
             </div>
-            <ProgressIndicator />
-            {/* <div className="absolute top-0 left-8"> <ToastContainer /> </div> */}
-        </nav>
+        </div>
     );
 }
-
-// import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-// import classNames from 'classnames';
-// import { CaretDownIcon } from '@radix-ui/react-icons';
-// import './styles.css';
-
-// const NavigationMenuDemo = () => {
-//   return (
-//     <NavigationMenu.Root className="NavigationMenuRoot">
-//       <NavigationMenu.List className="NavigationMenuList">
-//         <NavigationMenu.Item>
-//           <NavigationMenu.Trigger className="NavigationMenuTrigger">
-//             Learn <CaretDownIcon className="CaretDown" aria-hidden />
-//           </NavigationMenu.Trigger>
-//           <NavigationMenu.Content className="NavigationMenuContent">
-//             <ul className="List one">
-//               <li style={{ gridRow: 'span 3' }}>
-//                 <NavigationMenu.Link asChild>
-//                   <a className="Callout" href="/">
-//                     <svg aria-hidden width="38" height="38" viewBox="0 0 25 25" fill="white">
-//                       <path d="M12 25C7.58173 25 4 21.4183 4 17C4 12.5817 7.58173 9 12 9V25Z"></path>
-//                       <path d="M12 0H4V8H12V0Z"></path>
-//                       <path d="M17 8C19.2091 8 21 6.20914 21 4C21 1.79086 19.2091 0 17 0C14.7909 0 13 1.79086 13 4C13 6.20914 14.7909 8 17 8Z"></path>
-//                     </svg>
-//                     <div className="CalloutHeading">Radix Primitives</div>
-//                     <p className="CalloutText">Unstyled, accessible components for React.</p>
-//                   </a>
-//                 </NavigationMenu.Link>
-//               </li>
-
-//               <ListItem href="https://stitches.dev/" title="Stitches">
-//                 CSS-in-JS with best-in-class developer experience.
-//               </ListItem>
-//               <ListItem href="/colors" title="Colors">
-//                 Beautiful, thought-out palettes with auto dark mode.
-//               </ListItem>
-//               <ListItem href="https://icons.radix-ui.com/" title="Icons">
-//                 A crisp set of 15x15 icons, balanced and consistent.
-//               </ListItem>
-//             </ul>
-//           </NavigationMenu.Content>
-//         </NavigationMenu.Item>
-
-//         <NavigationMenu.Item>
-//           <NavigationMenu.Trigger className="NavigationMenuTrigger">
-//             Overview <CaretDownIcon className="CaretDown" aria-hidden />
-//           </NavigationMenu.Trigger>
-//           <NavigationMenu.Content className="NavigationMenuContent">
-//             <ul className="List two">
-//               <ListItem title="Introduction" href="/docs/primitives/overview/introduction">
-//                 Build high-quality, accessible design systems and web apps.
-//               </ListItem>
-//               <ListItem title="Getting started" href="/docs/primitives/overview/getting-started">
-//                 A quick tutorial to get you up and running with Radix Primitives.
-//               </ListItem>
-//               <ListItem title="Styling" href="/docs/primitives/overview/styling">
-//                 Unstyled and compatible with any styling solution.
-//               </ListItem>
-//               <ListItem title="Animation" href="/docs/primitives/overview/animation">
-//                 Use CSS keyframes or any animation library of your choice.
-//               </ListItem>
-//               <ListItem title="Accessibility" href="/docs/primitives/overview/accessibility">
-//                 Tested in a range of browsers and assistive technologies.
-//               </ListItem>
-//               <ListItem title="Releases" href="/docs/primitives/overview/releases">
-//                 Radix Primitives releases and their changelogs.
-//               </ListItem>
-//             </ul>
-//           </NavigationMenu.Content>
-//         </NavigationMenu.Item>
-
-//         <NavigationMenu.Item>
-//           <NavigationMenu.Link className="NavigationMenuLink" href="https://github.com/radix-ui">
-//             Github
-//           </NavigationMenu.Link>
-//         </NavigationMenu.Item>
-
-//         <NavigationMenu.Indicator className="NavigationMenuIndicator">
-//           <div className="Arrow" />
-//         </NavigationMenu.Indicator>
-//       </NavigationMenu.List>
-
-//       <div className="ViewportPosition">
-//         <NavigationMenu.Viewport className="NavigationMenuViewport" />
-//       </div>
-//     </NavigationMenu.Root>
-//   );
-// };
-
-// const ListItem = React.forwardRef(({ className, children, title, ...props }, forwardedRef) => (
-//   <li>
-//     <NavigationMenu.Link asChild>
-//       <a className={classNames('ListItemLink', className)} {...props} ref={forwardedRef}>
-//         <div className="ListItemHeading">{title}</div>
-//         <p className="ListItemText">{children}</p>
-//       </a>
-//     </NavigationMenu.Link>
-//   </li>
-// ));
-
-// export default NavigationMenuDemo;

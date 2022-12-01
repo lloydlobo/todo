@@ -7,12 +7,13 @@ module.exports = {
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
+    // #root: true,
     darkMode: "class",
     theme: {
         fontFamily: {
-            sans: ["Roboto", "sans-serif"],
-            display: ["Inter", "sans-serif"],
-            body: ["Roboto", "sans-serif"],
+            sans: ["PT_Sans", "sans"],
+            display: ["Nunito", "PT Sans Caption", "Figtree", "sans-serif"],
+            body: ["Inter", "sans-serif"],
             code: ["Roboto Mono", "sans-serif"],
         },
         colors: {
@@ -39,8 +40,8 @@ module.exports = {
         extend: {
             // content: { link: 'url("/icons/link.svg")' },
             boxShadow: {
-                "3xl": "0 5px 20px rgb(0 0 0 / 30%",
-                "4xl": "0 5px 20px rgb(0 0 0 / 90%",
+                "3xl": "0 5px 20px rgb(0 0 0 / 30%)",
+                "4xl": "0 5px 20px rgb(0 0 0 / 90%)",
             },
             typography: {
                 DEFAULT: {
