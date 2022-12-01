@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "../../components";
-
-import Search from "../../components/shared/Search";
 import { TodosPlaceholder } from "../../lib/interfaces";
 
 export const ENDPOINT = "http://localhost:8080";
@@ -9,6 +7,7 @@ export const ENDPOINT = "http://localhost:8080";
 export const fetcher = (urlToken: string): Promise<TodosPlaceholder[]> =>
     fetch(`${ENDPOINT}/${urlToken}`).then((res) => res.json());
 
+// To avoid CORS error, update go fiber or similar backend server.
 export default function TodosPage() {
     const token = "api/todos";
     const {
@@ -19,7 +18,6 @@ export default function TodosPage() {
     } = useQuery(["serverData"], () => fetcher(token)); //// { enabled: true }
 
     if (isLoading) return "Loading...";
-    // To avoid CORS error, update go fiber or similar backend server.
     if (error)
         return "An error has occured: " + (error as unknown as any).message;
 
@@ -33,29 +31,29 @@ export default function TodosPage() {
                         </header>
 
                         {todos.length ? (
-                            <div className="grid divide-y-[1px] divide-gray4/30 transition-all">
-                                {todos.map((todo) => (
-                                    <TodoItem
-                                        key={`${todo.id}-${todo.title}`}
-                                        todo={todo}
-                                        className="p-2 transition-all hover:bg-gray6"
-                                    />
-                                ))}
-                            </div>
+                            <TodoList todos={todos} />
                         ) : (
                             <p>No todos found</p>
                         )}
                     </section>
-                    <section>
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </section>
                 </div>
             </Layout>
         );
+}
+export function TodoList({ todos }: { todos: TodosPlaceholder[] }) {
+    return (
+        <>
+            <div className="grid divide-y-[1px] divide-gray4/30 transition-all">
+                {todos.map((todo) => (
+                    <TodoItem
+                        key={`${todo.id}-${todo.title}`}
+                        todo={todo}
+                        className="p-2 transition-all hover:bg-gray6"
+                    />
+                ))}
+            </div>
+        </>
+    );
 }
 
 export function TodoItem({
@@ -67,7 +65,7 @@ export function TodoItem({
 }) {
     return (
         <div className={`${className}`}>
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-x-4">
                 <input
                     type="checkbox"
                     defaultChecked={todo.completed}
@@ -76,17 +74,10 @@ export function TodoItem({
                         alert(e.target.checked ? "true" : "false");
                     }}
                 />
-
                 <div className="grid">
                     <h2 className="my-0 text-lg">{todo.title}</h2>
                     <p className="my-0 text-sm">{todo.body}</p>
-
-                    <div
-                        title="project-list-category"
-                        className="my-0 tag w-fit"
-                    >
-                        list-{todo.userId}
-                    </div>
+                    <div className="my-0 tag w-fit">list-{todo.userId}</div>
                 </div>
             </div>
         </div>
