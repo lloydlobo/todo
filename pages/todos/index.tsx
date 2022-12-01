@@ -26,7 +26,7 @@ export default function TodosPage() {
     if (isSuccess)
         return (
             <Layout title="Todos app">
-                <div className="grid max-w-3xl mx-auto">
+                <div className="grid max-w-3xl px-8 mx-auto">
                     <section>
                         <header>
                             <h1 className="text-purple-400">Disney agenda</h1>
