@@ -1,8 +1,16 @@
 import React, { ReactNode } from "react";
 
-export function KBDIcon({ children }: { children: any }) {
+export function KBDIcon({
+    children,
+    className,
+}: {
+    children: ReactNode;
+    className?: string;
+}) {
     return (
-        <div className="inline-flex items-center justify-center w-6 h-6 text-xs border border-b-2 rounded-md border-gray6 border-opacity-20 bg-gray7/60">
+        <div
+            className={`${className} inline-flex h-6 w-6 items-center justify-center rounded-md border border-b-2 border-gray6 border-opacity-20 bg-gray7/60 text-xs`}
+        >
             {children}
         </div>
     );
