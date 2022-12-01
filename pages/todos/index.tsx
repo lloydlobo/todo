@@ -1,66 +1,92 @@
-import {
-    ChevronRightIcon,
-    CrossIcon,
-    DivderPill,
-    Layout,
-    PencilSquareIcon,
-    PlusSmallIcon,
-} from "../../components";
+import { useQuery } from "@tanstack/react-query";
+import { Layout } from "../../components";
+
 import Search from "../../components/shared/Search";
+import { TodosPlaceholder } from "../../lib/interfaces";
+
+export const ENDPOINT = "http://localhost:8080";
+
+export const fetcher = (urlToken: string): Promise<TodosPlaceholder[]> =>
+    fetch(`${ENDPOINT}/${urlToken}`).then((res) => res.json());
 
 export default function TodosPage() {
-    return (
-        <Layout title="Todos app">
-            <div className="hidden">
-                <Search />
-            </div>
+    const token = "api/todos";
+    const {
+        isLoading,
+        error,
+        isSuccess,
+        data: todos,
+    } = useQuery(["serverData"], () => fetcher(token)); //// { enabled: true }
 
-            {/* <section title="hero">
-                <header className="flex justify-center gap-4 pt-12 sr-only">
-                    <span className="text-5xl text-center">📜</span>
-                    <h1 className="text-6xl text-center uppercase gradient-slide">
-                        Search
-                    </h1>
-                    <DivderPill />
-                </header>
-            </section> */}
-            <section>
-                <header>
-                    <h1 className="text-purple-400">Disney agenda</h1>
-                </header>
-            </section>
-            <section>
-                {/*
-                //// TodosPlaceholder
-                ////     userId: number
-                ////     id: number
-                ////     title: string
-                //// completed: boolean
-                */}
-                <ul>
-                    <li>
-                        <div className="flex items-start gap-4">
-                            <input
-                                type="checkbox"
-                                defaultChecked={true}
-                                className="my-1"
-                                onChange={(e) => {
-                                    alert(e.target.checked ? "true" : "false");
-                                }}
-                            />
-                            <div className="grid">
-                                <h2 className="my-0 text-xl">
-                                    Check-in at hotel
-                                </h2>
-                                <p className="my-0">No earlier than 3pm</p>
-                                <div className="my-0 tag w-fit">To do list</div>
-                            </div>
+    if (isLoading) return "Loading...";
+    // To avoid CORS error, update go fiber or similar backend server.
+    if (error)
+        return "An error has occured: " + (error as unknown as any).message;
+
+    if (isSuccess)
+        return (
+            <Layout title="Todos app">
+                <section>
+                    <header>
+                        <h1 className="text-purple-400">Disney agenda</h1>
+                    </header>
+
+                    {todos.length ? (
+                        <div className="grid divide-y-[1px] divide-gray4/30">
+                            {todos.map((todo) => (
+                                <TodoItem
+                                    key={todo.id + "-" + todo.title}
+                                    todo={todo}
+                                    className="p-2 hover:bg-gray6"
+                                />
+                            ))}
                         </div>
-                    </li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </section>
-        </Layout>
+                    ) : (
+                        <p>No todos found</p>
+                    )}
+                </section>
+                <section>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </section>
+            </Layout>
+        );
+}
+
+export function TodoItem({
+    todo,
+    className,
+}: {
+    todo: TodosPlaceholder;
+    className?: string;
+}) {
+    return (
+        <div className={`${className}`}>
+            <div className="flex items-start gap-4">
+                <input
+                    type="checkbox"
+                    defaultChecked={todo.completed}
+                    className="my-1"
+                    onChange={(e) => {
+                        alert(e.target.checked ? "true" : "false");
+                    }}
+                />
+
+                <div className="grid">
+                    <h2 className="my-0 text-lg">{todo.title}</h2>
+                    <p className="my-0 text-sm">{todo.body}</p>
+
+                    <div
+                        title="project-list-category"
+                        className="my-0 tag w-fit"
+                    >
+                        list-{todo.userId}
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
