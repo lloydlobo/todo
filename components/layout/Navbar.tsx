@@ -1,17 +1,25 @@
 import Link from "next/link";
 import { SearchModal } from "../shared";
 import { splitBrandName } from "../../lib/util";
+import { ReactNode } from "react";
 
-export function Navbar() {
+export function Navbar({ toggle }: { toggle: ReactNode }) {
     const { b1, b2 } = splitBrandName();
 
     return (
         <div className="container top-0 flex justify-between w-full py-6 shadow-sm navbar bg-gray7 md:p-8">
-            <div className="flex-1 mr-auto">
-                <Link href="/" className="text-2xl logo font-display">
-                    <span>{b1}</span>
-                    <span className="gradient-slide">{b2}</span>
-                </Link>
+            <div className="flex items-center flex-1 mr-auto">
+                <div className="grid items-center grid-flow-col bg-black/5">
+                    {toggle}
+
+                    <Link
+                        href="/"
+                        className="flex items-center text-2xl logo font-display"
+                    >
+                        <span className="">{b1}</span>
+                        <span className=" gradient-slide">{b2}</span>
+                    </Link>
+                </div>
             </div>
 
             <div className="nav-items flex items-center justify-center gap-[1.5ch] px-4 align-middle">

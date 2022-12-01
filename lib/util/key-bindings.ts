@@ -24,6 +24,29 @@ export const Ctrl1 = ({ onPress }: { onPress: VoidFunction }) => {
 
     return null
 }
+export const ShiftM = ({ onPress }: { onPress: VoidFunction }) => {
+    useEffect(() => {
+        const isCtrl1 = (e: KeyboardEvent): boolean => e.shiftKey && e.key === 'M'
+
+        const handler = (e: KeyboardEvent): void => {
+            if (isCtrl1(e)) onPress()
+        }
+        const ignore = (e: KeyboardEvent): void => {
+            if (isCtrl1(e)) e.preventDefault()
+        }
+
+        window.addEventListener('keyup', handler)
+        window.addEventListener('keydown', ignore)
+
+        // Cleanup fn.
+        return () => {
+            window.removeEventListener('keyup', handler)
+            window.removeEventListener('keydown', ignore)
+        }
+    }, [onPress])
+
+    return null
+}
 
 export const CtrlK = ({ onPress }: { onPress: VoidFunction }): null => {
     useEffect(() => {
