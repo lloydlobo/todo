@@ -26,32 +26,34 @@ export default function TodosPage() {
     if (isSuccess)
         return (
             <Layout title="Todos app">
-                <section>
-                    <header>
-                        <h1 className="text-purple-400">Disney agenda</h1>
-                    </header>
+                <div className="grid max-w-3xl mx-auto">
+                    <section>
+                        <header>
+                            <h1 className="text-purple-400">Disney agenda</h1>
+                        </header>
 
-                    {todos.length ? (
-                        <div className="grid divide-y-[1px] divide-gray4/30">
-                            {todos.map((todo) => (
-                                <TodoItem
-                                    key={todo.id + "-" + todo.title}
-                                    todo={todo}
-                                    className="p-2 hover:bg-gray6"
-                                />
-                            ))}
-                        </div>
-                    ) : (
-                        <p>No todos found</p>
-                    )}
-                </section>
-                <section>
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </section>
+                        {todos.length ? (
+                            <div className="grid divide-y-[1px] divide-gray4/30 transition-all">
+                                {todos.map((todo) => (
+                                    <TodoItem
+                                        key={`${todo.id}-${todo.title}`}
+                                        todo={todo}
+                                        className="p-2 transition-all hover:bg-gray6"
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <p>No todos found</p>
+                        )}
+                    </section>
+                    <section>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </section>
+                </div>
             </Layout>
         );
 }

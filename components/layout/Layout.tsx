@@ -43,20 +43,35 @@ export function Layout({
                 <ShiftM onPress={() => handleToggleShiftM()} />
             </header>
 
-            <aside
-                ref={refAside}
-                aria-label="Sidebar"
-                className={`absolute z-10 w-96 bg-gray7 shadow-md transition-all sm:h-screen sm:w-96
-                ${!toggle ? "-translate-x-96" : "translate-x-0"}`}
+            <div
+                className={`w-screen transition-all ${
+                    toggle ? "flex" : "block"
+                }`}
             >
-                <Sidebar />
-            </aside>
+                <aside
+                    ref={refAside}
+                    aria-label="Sidebar"
+                    className={`z-10 min-h-screen w-96 bg-gray7 shadow-md sm:w-72
+                ${
+                    !toggle
+                        ? "absolute -translate-x-96 opacity-0 blur-xl transition-all ease-out"
+                        : "translate-x-0 transition-all ease-in"
+                }`}
+                >
+                    <Sidebar />
+                </aside>
 
-            <main className="container">{children}</main>
-
-            <footer>
-                <Footer />
-            </footer>
+                <div className="grid w-full mx-auto">
+                    <div className="items-center w-full mx-auto">
+                        <main className="container col-span-12 transition-all">
+                            {children}
+                        </main>
+                        <footer className="w-full place-self-center">
+                            <Footer />
+                        </footer>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

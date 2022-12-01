@@ -3,7 +3,7 @@ import { Copyright } from "../ui";
 
 export function Footer() {
     return (
-        <div className="footer container my-6 mx-auto w-screen bg-gray7/[0.02] p-8 text-center text-gray3 backdrop-blur-lg">
+        <div className="footer container my-6 mx-auto bg-gray7/[0.02] p-8 text-center text-gray3 backdrop-blur-lg">
             <div className="w-24 h-1 mx-auto my-12 rounded-full bg-gray1 bg-gradient-to-r from-gray5 to-gray4 " />
             <div
                 title="footer-items"
