@@ -26,6 +26,9 @@ export function Layout({
         e.preventDefault();
         setToggle(!toggle);
     };
+    const handleToggleShiftM = () => {
+        setToggle(!toggle);
+    };
 
     return (
         <>
@@ -35,69 +38,17 @@ export function Layout({
 
             <header className="relative">
                 <nav className="sticky top-0 ">
-                    <Navbar
-                        toggle={
-                            <button
-                                title="hamburger menu"
-                                id="btnSidebarToggler"
-                                onClick={(e) => handleToggleClick(e)}
-                                type="button"
-                                className="pt-1 hover:text-gray-200 place-self-center"
-                            >
-                                <div className="relative">
-                                    <svg
-                                        id="navClosed"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        className={`h-6 w-6 transition-all duration-75 ease-in-out ${
-                                            toggle
-                                                ? "opacity-100"
-                                                : "absolute opacity-0"
-                                        }`}
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                                        />
-                                    </svg>
-                                    <svg
-                                        id="navOpen"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        className={`h-6 w-6  ${
-                                            !toggle
-                                                ? "opacity-100"
-                                                : "absolute opacity-0"
-                                        }`}
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
-                                </div>
-                            </button>
-                        }
-                    />
+                    <Navbar toggle={MenuButton(handleToggleClick, toggle)} />
                 </nav>
+                <ShiftM onPress={() => handleToggleShiftM()} />
             </header>
 
             <aside
                 ref={refAside}
-                className={`${
-                    toggle ? "-translate-x-96" : "translate-x-0"
-                } absolute z-10 w-96 bg-gray7 shadow-md transition-all sm:h-screen  sm:w-96`}
                 aria-label="Sidebar"
+                className={`absolute z-10 w-96 bg-gray7 shadow-md transition-all sm:h-screen sm:w-96
+                ${!toggle ? "-translate-x-96" : "translate-x-0"}`}
             >
-                <ShiftM onPress={() => setToggle(!toggle)} />
                 <Sidebar />
             </aside>
 
@@ -110,10 +61,61 @@ export function Layout({
     );
 }
 
-export function Sidebar() {
-    // search: <Search />,
-    // list: <TodoList />,
+export function MenuButton(
+    handleToggleClick: (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => void,
+    toggle: boolean
+): React.ReactNode {
+    return (
+        <button
+            title="hamburger menu"
+            id="btnSidebarToggler"
+            onClick={(e) => handleToggleClick(e)}
+            type="button"
+            className="pt-1 hover:text-gray-200 place-self-center"
+        >
+            <div className="relative">
+                <svg
+                    id="navClosed"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className={`h-6 w-6 transition-all duration-75 ease-in-out ${
+                        !toggle ? "opacity-100" : "absolute opacity-0"
+                    }`}
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    />
+                </svg>
+                <svg
+                    id="navOpen"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className={`h-6 w-6  ${
+                        toggle ? "opacity-100" : "absolute opacity-0"
+                    }`}
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                    />
+                </svg>
+            </div>
+        </button>
+    );
+}
 
+export function Sidebar() {
     const boxes = [
         {
             title: "Today",
