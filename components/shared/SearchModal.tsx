@@ -42,7 +42,7 @@ export function SearchModal() {
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <div className="flex items-center justify-center min-h-full p-4 text-center">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
@@ -55,7 +55,7 @@ export function SearchModal() {
                                 <Dialog.Panel className="h-[85vh] w-full max-w-xl transform overflow-hidden rounded-2xl bg-gray7 p-6 text-left align-middle shadow-xl transition-all xl:max-w-6xl">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-gray-900 fnt-display text-center text-lg font-medium leading-6"
+                                        className="text-lg font-medium leading-6 text-center text-gray-900 fnt-display"
                                     >
                                         Search
                                     </Dialog.Title>
