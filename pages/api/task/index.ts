@@ -1,30 +1,30 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Todos } from "../../../lib/interfaces";
+import { Todo } from "../../../lib/interfaces";
 // import Task from "../../../models/Task";
 /// import Task from "../../../models/Task";
 
 export type ServerDataTasks = {
-    message: string;
-    status: number;
-    data?: Todos[];
+  message: string;
+  status: number;
+  data?: Todo[];
 };
 
 export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse<ServerDataTasks>
+  req: NextApiRequest,
+  res: NextApiResponse<ServerDataTasks>
 ) {
-    try {
-        const { tasks } = data;
-        if (typeof tasks !== undefined) {
-            res.status(200).json({
-                status: 200,
-                message: "Tasks fetched successfully",
-                data: data.tasks,
-            });
-        }
-    } catch (error) {
-        console.error(error)
+  try {
+    const { tasks } = data;
+    if (typeof tasks !== undefined) {
+      res.status(200).json({
+        status: 200,
+        message: "Tasks fetched successfully",
+        data: data.tasks,
+      });
     }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // // const { method } = req;

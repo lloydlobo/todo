@@ -102,6 +102,8 @@
     "/lib/interfaces",
     "/components/shared",
     "/lib/util",
-    "/components/ui/animation"
+    "/components/ui/animation",
+    "/lib/schemas",
+    "/lib/schemas/validate"
   ]
 }

@@ -1,9 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AddTodo, Layout } from "../../components";
 import { ENDPOINT } from "../../lib/constants";
-import { Todos } from "../../lib/interfaces";
+import { Todo } from "../../lib/interfaces";
+import { validateTodo, validateTodos } from "../../lib/schemas/validate";
 
-export function fetcher(urlToken: string): Promise<Todos[]> {
+export function fetcher(urlToken: string): Promise<Todo[]> {
   return fetch(`${ENDPOINT}/${urlToken}`).then((res) => res.json());
 }
 
@@ -28,6 +29,8 @@ export default function TodosPage() {
     },
   });
 
+  if (typeof todos === "undefined") return <>Something went wrong!</>;
+  if (!validateTodos(todos)) return <>Something went wrong!</>;
   if (isLoading) return "Loading...";
   if (error)
     return "An error has occured: " + (error as unknown as any).message;
@@ -53,7 +56,7 @@ export default function TodosPage() {
       </Layout>
     );
 }
-export function TodoList({ todos }: { todos: Todos[] }) {
+export function TodoList({ todos }: { todos: Todo[] }) {
   return (
     <>
       <div className="grid divide-y-[1px] divide-gray4/30 transition-all">
@@ -73,7 +76,7 @@ export function TodoItem({
   todo,
   className,
 }: {
-  todo: Todos;
+  todo: Todo;
   className?: string;
 }) {
   return (
