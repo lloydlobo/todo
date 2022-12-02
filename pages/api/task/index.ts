@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { Todos } from "../../../lib/interfaces";
 // import Task from "../../../models/Task";
 /// import Task from "../../../models/Task";
 
 export type ServerDataTasks = {
     message: string;
     status: number;
-    data?: Task[];
+    data?: Todos[];
 };
 
 export default async function handler(

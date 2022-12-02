@@ -5,7 +5,7 @@ import { z } from "zod";
 import { DivderPill, Layout } from "../../components";
 import { TodoCard } from "../../components/todos";
 import { fetchTodos } from "../../lib/api";
-import { TodosPlaceholder } from "../../lib/interfaces";
+import { Todos } from "../../lib/interfaces";
 
 export function validateString(router: NextRouter): string {
     let todoID = "";
@@ -32,11 +32,9 @@ export default function Todo(req: NextApiRequest, res: NextApiResponse) {
         data: todo,
         isLoading,
         isError,
-    } = useQuery(
-        ["getTodo", todoID],
-        () => fetchTodos<TodosPlaceholder>(todoID),
-        { enabled: todoID.length > 0 }
-    );
+    } = useQuery(["getTodo", todoID], () => fetchTodos<Todos>(todoID), {
+        enabled: todoID.length > 0,
+    });
 
     if (isLoading) return <div>Loading...</div>;
     if (isError) return <div>We couldn&apos;t find your todo </div>;
@@ -60,7 +58,7 @@ export default function Todo(req: NextApiRequest, res: NextApiResponse) {
             <section title="history">
                 <div className="grid place-content-center">
                     <header>
-                        <h3 className="text-4xl tracking-tight text-center uppercase">
+                        <h3 className="text-center text-4xl uppercase tracking-tight">
                             History
                         </h3>
                         <DivderPill className="from-yellow-500 to-pink-500" />
@@ -73,8 +71,8 @@ export default function Todo(req: NextApiRequest, res: NextApiResponse) {
                     </div> */}
 
                     <div className="grid-list">
-                        <div className="flex w-40 h-40 p-6 mx-2 bg-black border-b-4 rounded-lg aspect-square border-gray6 bg-opacity-30 shadow-3xl">
-                            <div className="text-center list">
+                        <div className="mx-2 flex aspect-square h-40 w-40 rounded-lg border-b-4 border-gray6 bg-black bg-opacity-30 p-6 shadow-3xl">
+                            <div className="list text-center">
                                 <h4 className="my-0">Jan - Mar</h4>
                                 <ul className="[&>*]:list-disc">
                                     <li className="list-disc">{todo.id}</li>
@@ -83,8 +81,8 @@ export default function Todo(req: NextApiRequest, res: NextApiResponse) {
                                 </ul>
                             </div>
                         </div>
-                        <div className="flex w-40 h-40 p-6 mx-2 bg-black border-b-4 rounded-lg aspect-square border-gray6 bg-opacity-30 shadow-3xl">
-                            <div className="text-center list">
+                        <div className="mx-2 flex aspect-square h-40 w-40 rounded-lg border-b-4 border-gray6 bg-black bg-opacity-30 p-6 shadow-3xl">
+                            <div className="list text-center">
                                 <h4 className="my-0">Apr - Jun</h4>
                                 <ul className="[&>*]:list-disc">
                                     <li className="list-disc">{todo.id}</li>
@@ -93,8 +91,8 @@ export default function Todo(req: NextApiRequest, res: NextApiResponse) {
                                 </ul>
                             </div>
                         </div>
-                        <div className="flex w-40 h-40 p-6 mx-2 bg-black border-b-4 rounded-lg aspect-square border-gray6 bg-opacity-30 shadow-3xl">
-                            <div className="text-center list">
+                        <div className="mx-2 flex aspect-square h-40 w-40 rounded-lg border-b-4 border-gray6 bg-black bg-opacity-30 p-6 shadow-3xl">
+                            <div className="list text-center">
                                 <h4 className="my-0">Jul - Sep</h4>
                                 <ul className="[&>*]:list-disc">
                                     <li className="list-disc">{todo.id}</li>
@@ -103,8 +101,8 @@ export default function Todo(req: NextApiRequest, res: NextApiResponse) {
                                 </ul>
                             </div>
                         </div>
-                        <div className="flex w-40 h-40 p-6 mx-2 bg-black border-b-4 rounded-lg aspect-square border-gray6 bg-opacity-30 shadow-3xl">
-                            <div className="text-center list">
+                        <div className="mx-2 flex aspect-square h-40 w-40 rounded-lg border-b-4 border-gray6 bg-black bg-opacity-30 p-6 shadow-3xl">
+                            <div className="list text-center">
                                 <h4 className="my-0">Oct - Dec</h4>
                                 <ul className="[&>*]:list-disc">
                                     <li className="list-disc">{todo.id}</li>

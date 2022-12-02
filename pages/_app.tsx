@@ -1,10 +1,4 @@
-import {
-    Figtree,
-    Inter,
-    Nunito,
-    PT_Sans_Caption,
-    Roboto,
-} from "@next/font/google";
+import { Inter, Nunito } from "@next/font/google";
 import {
     Hydrate,
     QueryClient,
@@ -12,23 +6,12 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import { useState } from "react";
-import theme from "../src/theme";
 import "../styles/globals.scss";
-// import createEmotionCache from "../src/createEmotionCache";
+
 // https://nextjs.org/docs/basic-features/font-optimization#usage
 // Client-side cache, shared for the whole session of the user in the browser.
-// const clientSideEmotionCache = createEmotionCache();
-// https://github.com/mui/material-ui/blob/master/examples/nextjs-with-typescript/pages/_app.tsx
-interface MyAppProps extends AppProps {
-    // emotionCache?: EmotionCache;
-}
-
-const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 const inter = Inter({ weight: "400", subsets: ["latin"] });
-const figtree = Figtree({ weight: "700", subsets: ["latin"] });
-const ptSansCaption = PT_Sans_Caption({ weight: "700", subsets: ["latin"] });
 const nunito = Nunito({ weight: "1000", subsets: ["latin"] });
 
 export default function App({ Component, pageProps }: AppProps) {

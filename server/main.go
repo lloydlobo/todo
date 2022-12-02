@@ -31,6 +31,7 @@ type Todo struct {
 func mainRun() {
 	app := fiber.New()
 
+	// Use a new CORS application.
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "http://localhost:3000",
 		AllowHeaders: "Origin, Content-Type, Accept",
@@ -38,10 +39,9 @@ func mainRun() {
 
 	todos := []Todo{}
 
-	app.Get("/healthcheck", func(c *fiber.Ctx) error {
-		return c.SendString("OK") // SendString sets the HTTP response body  for string type.
-	})
+	app.Get("/healthcheck", configCORS)
 
+	// Post a todo.
 	app.Post("/api/todos", func(c *fiber.Ctx) error {
 		todo := &Todo{}
 
@@ -78,4 +78,8 @@ func mainRun() {
 	})
 
 	log.Fatal(app.Listen(PORT))
+}
+
+func configCORS(c *fiber.Ctx) error {
+	return c.SendString("OK") // SendString sets the HTTP response body  for string type.
 }

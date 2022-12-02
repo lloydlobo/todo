@@ -1,106 +1,107 @@
 {
-    "editor.tabCompletion": "on",
-    "diffEditor.codeLens": true,
-    "workbench.colorCustomizations": {
-        "editorInfo.foreground": "#0080ff6a",
-        "minimap.background": "#00000000",
-        "scrollbar.shadow": "#00000000"
-    },
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "**/Thumbs.db": true,
-        ".vscode/": false,
-        "jest.config.js": true,
-        "jest.setup.js": true,
-        "next-env.d.ts": true,
-        "next.config.js": true,
-        "package-lock.json": true,
-        "playwright.config.ts": true,
-        "postcss.config.js": false,
-        "prettier.config.js": true,
-        "tsconfig.tsbuildinfo": true,
-        ".eslintrc.json": true,
-        ".hintrc": true,
-        ".prettierrc": true,
-        "tests-examples/": true,
-        "playwright-report/": true,
-        "node_modules/": true,
-        ".github/": true,
-        ".next/": true,
-        ".trunk/": true,
-        "docs/": true
-    },
-    "explorerExclude.backup": {},
-    "editor.tokenColorCustomizations": {
-        "textMateRules": [
-            {
-                "scope": "keyword.other.dotenv",
-                "settings": {
-                    "foreground": "#FF000005"
-                }
-            }
-        ],
-        "comments": ""
-    },
-    "hidefiles.configurationType": "local",
-    "hidefiles.globalConfig": {
-        "profiles": [
-            {
-                "name": "Default",
-                "detail": "",
-                "description": "Test",
-                "hidden": [
-                    ".vscode/",
-                    "jest.config.js",
-                    "jest.setup.js",
-                    "next-env.d.ts",
-                    "next.config.js",
-                    "package-lock.json",
-                    "jest.setup.js",
-                    "playwright.config.ts",
-                    "postcss.config.js",
-                    "prettier.config.js",
-                    "tsconfig.tsbuildinfo",
-                    "tsconfig.json",
-                    ".eslintrc.json",
-                    ".hintrc",
-                    ".prettierrc",
-                    ".eslintrc.json",
-                    "tests-examples/",
-                    "playwright-report/",
-                    "node_modules/",
-                    ".github/",
-                    ".next/",
-                    ".trunk/",
-                    "docs/"
-                ]
-            },
-            {
-                "name": "Strict",
-                "detail": "Hide everything not immediately required",
-                "hidden": ["$Default"]
-            }
+  "editor.tabCompletion": "on",
+  "diffEditor.codeLens": true,
+  "workbench.colorCustomizations": {
+    "editorInfo.foreground": "#0080ff6a",
+    "minimap.background": "#00000000",
+    "scrollbar.shadow": "#00000000"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".vscode/": false,
+    "jest.config.js": true,
+    "jest.setup.js": true,
+    "next-env.d.ts": true,
+    "next.config.js": true,
+    "package-lock.json": true,
+    "playwright.config.ts": true,
+    "postcss.config.js": false,
+    "prettier.config.js": true,
+    "tsconfig.tsbuildinfo": true,
+    ".eslintrc.json": true,
+    ".hintrc": true,
+    ".prettierrc": false,
+    "tests-examples/": true,
+    "playwright-report/": true,
+    "node_modules/": true,
+    ".github/": true,
+    ".next/": true,
+    ".trunk/": true,
+    "docs/": true
+  },
+  "explorerExclude.backup": {},
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "keyword.other.dotenv",
+        "settings": {
+          "foreground": "#FF000005"
+        }
+      }
+    ],
+    "comments": ""
+  },
+  "hidefiles.configurationType": "local",
+  "hidefiles.globalConfig": {
+    "profiles": [
+      {
+        "name": "Default",
+        "detail": "",
+        "description": "Test",
+        "hidden": [
+          ".vscode/",
+          "jest.config.js",
+          "jest.setup.js",
+          "next-env.d.ts",
+          "next.config.js",
+          "package-lock.json",
+          "jest.setup.js",
+          "playwright.config.ts",
+          "postcss.config.js",
+          "prettier.config.js",
+          "tsconfig.tsbuildinfo",
+          "tsconfig.json",
+          ".eslintrc.json",
+          ".hintrc",
+          ".prettierrc",
+          ".eslintrc.json",
+          "tests-examples/",
+          "playwright-report/",
+          "node_modules/",
+          ".github/",
+          ".next/",
+          ".trunk/",
+          "docs/"
         ]
-    },
-    "dotenv.enableAutocloaking": false,
-    "exportall.config.folderListener": [
-        "/lib/utils",
-        "/lib/hooks/api",
-        "/lib/hooks",
-        "/lib/data",
-        "/lib/api",
-        "/components/task",
-        "/components/layout",
-        "/components",
-        "/components/ui/icons",
-        "/components/ui",
-        "/components/todos",
-        "/lib/interfaces",
-        "/components/shared",
-        "/lib/util"
+      },
+      {
+        "name": "Strict",
+        "detail": "Hide everything not immediately required",
+        "hidden": ["$Default"]
+      }
     ]
+  },
+  "dotenv.enableAutocloaking": false,
+  "exportall.config.folderListener": [
+    "/lib/utils",
+    "/lib/hooks/api",
+    "/lib/hooks",
+    "/lib/data",
+    "/lib/api",
+    "/components/task",
+    "/components/layout",
+    "/components",
+    "/components/ui/icons",
+    "/components/ui",
+    "/components/todos",
+    "/lib/interfaces",
+    "/components/shared",
+    "/lib/util",
+    "/components/ui/animation"
+  ]
 }
