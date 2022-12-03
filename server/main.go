@@ -39,7 +39,7 @@ func mainRun() {
 
 	todos := []Todo{}
 
-	app.Get("/healthcheck", configCORS)
+	app.Get("/healthcheck", handleHealthCheck)
 
 	// Post a todo.
 	app.Post("/api/todos", func(c *fiber.Ctx) error {
@@ -80,6 +80,6 @@ func mainRun() {
 	log.Fatal(app.Listen(PORT))
 }
 
-func configCORS(c *fiber.Ctx) error {
+func handleHealthCheck(c *fiber.Ctx) error {
 	return c.SendString("OK") // SendString sets the HTTP response body  for string type.
 }

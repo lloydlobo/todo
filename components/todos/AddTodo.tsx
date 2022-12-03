@@ -12,6 +12,7 @@ import { SetStateAction, useState } from "react";
 import { KeyedMutator } from "swr";
 import { ENDPOINT, TOKEN } from "../../lib/constants";
 import { Todo } from "../../lib/interfaces";
+import { CrossIcon, PlusIcon } from "../ui";
 
 /**
  * controls if add todo dialog is open or closed
@@ -31,11 +32,12 @@ export function AddTodo({
       <Group position="center">
         <button
           onClick={() => setOpen(true)}
-          className="glow btn-glow btn mb-3"
+          className="glow btn-sm btn-glow btn mb-3 aspect-square rounded-full transition-all"
           title="Toggle Modal"
           type="button"
         >
-          Add Todo
+          {open ? <CrossIcon /> : <PlusIcon />}
+          <span className="sr-only">Add Todo</span>
         </button>
       </Group>
 

@@ -1,6 +1,6 @@
 // jest.config.js
 // https://blog.jarrodwatts.com/how-to-set-up-nextjs-with-jest-react-testing-library-and-playwright
-
+// https://github.com/mantinedev/mantine-next-template/blob/master/jest.config.js
 module.exports = {
   collectCoverageFrom: [
     "**/*.{js,jsx,ts,tsx}",
