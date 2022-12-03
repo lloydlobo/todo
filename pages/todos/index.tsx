@@ -1,3 +1,4 @@
+import { List } from "@mantine/core";
 import useSWR, { KeyedMutator } from "swr";
 import { AddTodo, Layout } from "../../components";
 import { fetcher } from "../../lib/api";
@@ -22,7 +23,7 @@ function getJSXElement(
 ): JSX.Element {
   return (
     <Layout title="Todos app">
-      <div className="grid max-w-3xl px-8 mx-auto">
+      <div className="mx-auto grid max-w-3xl px-8">
         <section>
           <header>
             <h1 className="text-purple-400">Disney agenda</h1>
@@ -45,6 +46,9 @@ export function TodoList({ todos }: { todos: Todo[] }) {
   return (
     <>
       <div className="grid divide-y-[1px] divide-gray4/30 transition-all">
+        {/* <List>
+
+        </List> */}
         {todos.map((todo) => (
           <TodoItem
             key={`${todo.id}-${todo.title}`}
@@ -78,7 +82,7 @@ export function TodoItem({
         <div className="grid">
           <h2 className="my-0 text-lg">{todo.title}</h2>
           <p className="my-0 text-sm">{todo.body}</p>
-          <div className="my-0 tag w-fit">list-{todo.userId}</div>
+          <div className="tag my-0 w-fit">list-{todo.userId}</div>
         </div>
       </div>
     </div>

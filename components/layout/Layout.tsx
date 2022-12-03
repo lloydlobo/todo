@@ -47,7 +47,7 @@ export function Layout({
         <ShiftM onPress={() => handleToggleShiftM()} />
       </header>
 
-      <div className="grid w-screen mx-auto place-content-center">
+      <div className="mx-auto grid w-screen place-content-center">
         <div
           className={`w-[100vw]  transition-all ${
             toggle ? "container mx-0 flex" : "block"
@@ -70,7 +70,7 @@ export function Layout({
             <div className="container sticky top-[90vh] z-50 justify-end place-self-end transition-all">
               <ScrollUp />
             </div>
-            <div className="w-full mx-auto s-center">
+            <div className="s-center mx-auto w-full">
               <main className="container col-span-12 transition-all">
                 {children}
               </main>
@@ -97,7 +97,7 @@ function ScrollUp(): JSX.Element {
 
   useEffect(() => {
     window.addEventListener("scroll", (): void => {
-      return window.scrollY > 400 ? setScrollTop(true) : setScrollTop(false);
+      return window.scrollY > 200 ? setScrollTop(true) : setScrollTop(false);
     });
 
     return () => {
@@ -124,19 +124,19 @@ function ScrollUp(): JSX.Element {
   return (
     <>
       <div
-        className={`absolute top-0 right-4 transition-all duration-300 ease-out ${
+        className={`absolute top-0 right-4 transition-all duration-300 hover:drop-shadow-[0_0_9px_rgba(34,197,94,0.9)] ${
           scrollTop
-            ? "scroll-up scale-100 opacity-100 hue-rotate-0 ease-in"
+            ? "scroll-up scale-100 opacity-100 ease-in"
             : "glow scale-50 opacity-0 mix-blend-hue blur-lg brightness-75 hue-rotate-180  "
         }`}
       >
         <button
           type="button"
           title="scroll up"
-          className="rounded-full hover:btn-transparent btn btn-sm hover:bg-gray-700 aspect-square bg-gray3"
+          className=" btn btn-sm glow aspect-square rounded-full backdrop-blur-sm transition-all  hover:text-green-500"
           onClick={(e) => handleOnClick(e)}
         >
-          <ChevronUpIcon className="w-6 h-6" />
+          <ChevronUpIcon className="h-6 w-6 stroke-2 " />
         </button>
       </div>
       <style>{`
@@ -215,7 +215,7 @@ export function MenuButton(
       id="btnSidebarToggler"
       onClick={(e) => handleToggleClick(e)}
       type="button"
-      className="pt-1 hover:text-gray-200 place-self-center"
+      className="hover:text-gray-200 place-self-center pt-1"
     >
       <div className="relative">
         <svg
@@ -262,22 +262,22 @@ export function Sidebar() {
     {
       title: "Today",
       total: 1,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
     },
     {
       title: "Scheduled",
       total: 3,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
     },
     {
       title: "All",
       total: 60,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
     },
     {
       title: "Flagged",
       total: 0,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
     },
   ];
 
@@ -286,7 +286,7 @@ export function Sidebar() {
     {
       title: "Todo List",
       total: 1,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
       items: boxes,
       link: "#",
       divider: true,
@@ -295,7 +295,7 @@ export function Sidebar() {
     {
       title: "2022 Goals",
       total: 3,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
       items: boxes,
       link: "#",
       divider: true,
@@ -304,7 +304,7 @@ export function Sidebar() {
     {
       title: "Article Items",
       total: 60,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
       items: boxes,
       link: "#",
       divider: true,
@@ -313,7 +313,7 @@ export function Sidebar() {
     {
       title: "School",
       total: 1,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
       items: boxes,
       link: "#",
       divider: true,
@@ -322,7 +322,7 @@ export function Sidebar() {
     {
       title: "Personal Finance",
       total: 3,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
       items: boxes,
       link: "#",
       divider: true,
@@ -331,7 +331,7 @@ export function Sidebar() {
     {
       title: "Work",
       total: 60,
-      icon: <CrossIcon className="w-4 h-4" />,
+      icon: <CrossIcon className="h-4 w-4" />,
       items: boxes,
       link: "#",
       divider: true,
@@ -341,7 +341,7 @@ export function Sidebar() {
 
   return (
     <>
-      <div className="h-full px-3 py-4 overflow-y-auto bg-black/5 backdrop-blur-sm dark:bg-gray5">
+      <div className="h-full overflow-y-auto bg-black/5 px-3 py-4 backdrop-blur-sm dark:bg-gray5">
         <section title="tabs-overview" className="">
           <header>
             <h2 className="sr-only">Tasks total</h2>
@@ -349,16 +349,16 @@ export function Sidebar() {
           <div className="grid grid-cols-2 gap-3">
             {boxes.map((box, index) => (
               <div key={`${index}-${box.title}`} className="box box-card">
-                <div className="grid items-center justify-between grid-flow-col px-1 py-1">
+                <div className="grid grid-flow-col items-center justify-between px-1 py-1">
                   <div className="grid gap-2">
-                    <div className="grid items-center w-6 h-6 p-2 rounded-full aspect-square place-content-center bg-gray7">
+                    <div className="grid aspect-square h-6 w-6 place-content-center items-center rounded-full bg-gray7 p-2">
                       <i>{box.icon}</i>
                     </div>
-                    <span className="font-bold font-display sm:text-xs">
+                    <span className="font-display font-bold sm:text-xs">
                       {box.title}
                     </span>
                   </div>
-                  <output className="text-2xl font-bold output place-self-start">
+                  <output className="output place-self-start text-2xl font-bold">
                     {box.total}
                   </output>
                 </div>
@@ -371,24 +371,24 @@ export function Sidebar() {
           <header>
             <h2>My Lists</h2>
           </header>
-          <div className="grid divide-y-2 rounded-t-lg divide-gray7/30 bg-gray6">
+          <div className="grid divide-y-2 divide-gray7/30 rounded-t-lg bg-gray6">
             {lists.map((list, index) => (
               <div
                 key={`${index}-${list.title}`}
                 className="box-rect box-transparent"
               >
-                <div className="grid items-center justify-between grid-flow-col px-1 py-1 ">
+                <div className="grid grid-flow-col items-center justify-between px-1 py-1 ">
                   <div className="flex items-center gap-2">
-                    <div className="grid items-center w-6 h-6 p-2 rounded-full aspect-square place-content-center bg-gray7">
+                    <div className="grid aspect-square h-6 w-6 place-content-center items-center rounded-full bg-gray7 p-2">
                       <i>{list.icon}</i>
                     </div>
-                    <div className="grid gap-2 text-md">{list.title}</div>
+                    <div className="text-md grid gap-2">{list.title}</div>
                   </div>
-                  <div className="grid items-center grid-flow-col total-end text-gray3">
-                    <output className="text-lg font-display">
+                  <div className="total-end grid grid-flow-col items-center text-gray3">
+                    <output className="font-display text-lg">
                       {list.total}
                     </output>
-                    <ChevronRightIcon className="w-4 h-4" />
+                    <ChevronRightIcon className="h-4 w-4" />
                   </div>
                 </div>
               </div>
@@ -398,14 +398,14 @@ export function Sidebar() {
         <nav>
           <div className="overflow-y-hidden bg-gray7/5 backdrop-blur-lg">
             {/* <div className="absolute left-0 right-0 -z-10 h-[4.5rem] w-[110%] bg-gray5" /> */}
-            <div className="grid items-center justify-between grid-cols-2 gap-2 px-2 py-4">
+            <div className="grid grid-cols-2 items-center justify-between gap-2 px-2 py-4">
               <button className="btn glow btn-ghost">
                 <div className="flex items-center gap-2">
                   <PlusSmallIcon />
                   New Reminder
                 </div>
               </button>
-              <button className="items-center glow btn btn-ghost place-self-end">
+              <button className="glow btn btn-ghost items-center place-self-end">
                 <div className="flex items-center gap-2">
                   <div className="hidden">
                     <PencilSquareIcon />
