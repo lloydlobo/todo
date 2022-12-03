@@ -7,47 +7,24 @@ import {
   Textarea,
   TextInput,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { useState } from "react";
-import { ENDPOINT } from "../../lib/constants";
-
-function UseForm() {
-  return useForm({
-    initialValues: {
-      title: "",
-      body: "",
-      completed: false,
-    },
-
-    validate: {
-      title: (value: string) => {
-        if (value.length === 0) return "Title is required";
-        if (value.length > 20) return "Title too long";
-      },
-    },
-  });
-}
+import { useForm, UseFormReturnType } from "@mantine/form";
+import { SetStateAction, useState } from "react";
+import { KeyedMutator } from "swr";
+import { ENDPOINT, TOKEN } from "../../lib/constants";
+import { Todo } from "../../lib/interfaces";
 
 /**
  * controls if add todo dialog is open or closed
  *
  */
-export function AddTodo({ mutation }): JSX.Element {
+export function AddTodo({
+  mutate,
+}: {
+  mutate: KeyedMutator<Todo[]>;
+}): JSX.Element {
   const [open, setOpen] = useState(false);
   const form = UseForm();
-
-  const handleSubmitForm = async (values: { title: string; body: string }) => {
-    const updated = await fetch(`${ENDPOINT}/api/todos`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    }).then((response) => response.json());
-
-    // Reset form inputs to initialValues.
-    form.reset();
-
-    setOpen(false);
-  };
+  const createTodo = createTodoMutate({ mutate, form, setOpen });
 
   return (
     <>
@@ -68,15 +45,14 @@ export function AddTodo({ mutation }): JSX.Element {
         title="Create todo"
         styles={{
           modal: {
-            backgroundColor: "hsla(0, 0%, 10%, 0.9)",
+            backgroundColor: "hsla(225, 10%, 8%, 1.0)",
             color: "inherit",
           },
-          // overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)", },
         }}
       >
         <Group position="center">
           <Box sx={{ maxWidth: 300 }} mx="auto">
-            <form action="submit" onSubmit={form.onSubmit(handleSubmitForm)}>
+            <form action="submit" onSubmit={form.onSubmit(createTodo)}>
               <TextInput
                 label="Add todo"
                 mb={12}
@@ -85,7 +61,6 @@ export function AddTodo({ mutation }): JSX.Element {
                 withAsterisk
                 {...form.getInputProps("title")}
               />
-
               <Textarea
                 label="Body"
                 mb={12}
@@ -94,7 +69,6 @@ export function AddTodo({ mutation }): JSX.Element {
                 withAsterisk
                 {...form.getInputProps("body")}
               />
-
               <Checkbox
                 mt="md"
                 label="Completed"
@@ -102,7 +76,6 @@ export function AddTodo({ mutation }): JSX.Element {
                   type: "checkbox",
                 })}
               />
-
               <Group position="center" mt="md">
                 <Button type="submit">Create Todo</Button>
               </Group>
@@ -113,3 +86,69 @@ export function AddTodo({ mutation }): JSX.Element {
     </>
   );
 }
+
+interface CreateTodoInterface {
+  mutate: KeyedMutator<Todo[]>;
+  form: UseFormReturnType<
+    {
+      title: string;
+      body: string;
+      completed: boolean;
+    },
+    (values: { title: string; body: string; completed: boolean }) => {
+      title: string;
+      body: string;
+      completed: boolean;
+    }
+  >;
+  setOpen: {
+    (value: SetStateAction<boolean>): void;
+    (arg0: boolean): void;
+  };
+}
+
+function createTodoMutate({ mutate, form, setOpen }: CreateTodoInterface) {
+  return async (values: { title: string; body: string }) => {
+    const updated = await fetch(`${ENDPOINT}/${TOKEN}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    }).then((response) => response.json());
+
+    // Mutate here.  // addTodo.mutate(updated);
+    mutate(updated);
+
+    // Reset form inputs to initialValues.
+    form.reset();
+
+    setOpen(false);
+  };
+}
+
+function UseForm() {
+  return useForm({
+    initialValues: {
+      title: "",
+      body: "",
+      completed: false,
+    },
+
+    validate: {
+      title: (value: string) => {
+        if (value.length === 0) return "Title is required";
+        if (value.length > 20) return "Title too long";
+      },
+    },
+  });
+}
+
+//// /**
+////  * @sources https://tkdodo.eu/blog/mastering-mutations-in-react-query
+////  */
+//// const addTodo = useMutation((newComment) =>
+////   fetch(`${ENDPOINT}/${{ token }}`, {
+////     method: "POST",
+////     headers: { "Content-Type": "application/json" },
+////     body: JSON.stringify(todos),
+////   }).then((response) => response.json())
+//// );
