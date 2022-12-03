@@ -1,61 +1,46 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import useSWR, { KeyedMutator } from "swr";
 import { AddTodo, Layout } from "../../components";
-import { ENDPOINT } from "../../lib/constants";
-import { Todo } from "../../lib/interfaces";
-import { validateTodo, validateTodos } from "../../lib/schemas/validate";
-
-export function fetcher(urlToken: string): Promise<Todo[]> {
-  return fetch(`${ENDPOINT}/${urlToken}`).then((res) => res.json());
-}
+import { fetcher } from "../../lib/api";
+import { TOKEN } from "../../lib/constants";
+import { Todo, Todos } from "../../lib/interfaces";
+import { validateTodos } from "../../lib/schemas/validate";
 
 // To avoid CORS error, update go fiber or similar backend server.
 export default function TodosPage() {
-  const token = "api/todos";
-  const {
-    isLoading,
-    error,
-    isSuccess,
-    // useMutation,
-    data: todos,
-  } = useQuery(["serverData"], () => fetcher(token)); //// { enabled: true }
-
-  // https://tanstack.com/query/v4/docs/quick-start
-  // Access the client
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    onSuccess: () => {
-      // Invalidate and refetch.
-      queryClient.invalidateQueries({ queryKey: ["serverData"] });
-    },
-  });
-
-  if (typeof todos === "undefined") return <>Something went wrong!</>;
-  if (!validateTodos(todos)) return <>Something went wrong!</>;
-  if (isLoading) return "Loading...";
-  if (error)
-    return "An error has occured: " + (error as unknown as any).message;
-
-  if (isSuccess)
-    return (
-      <Layout title="Todos app">
-        <div className="grid max-w-3xl px-8 mx-auto">
-          <section>
-            <header>
-              <h1 className="text-purple-400">Disney agenda</h1>
-            </header>
-
-            <AddTodo mutation={mutation} />
-
-            {todos.length ? (
-              <TodoList todos={todos} />
-            ) : (
-              <p className="text-center">No todos found</p>
-            )}
-          </section>
-        </div>
-      </Layout>
-    );
+  const { data, mutate, error } = useSWR<Todo[]>(TOKEN, fetcher);
+  if (typeof data !== "undefined") {
+    if (!validateTodos(data)) return <>Something went wrong!</>;
+    if (error) return "An error has occured: " + error.message;
+    return getJSXElement(data, mutate);
+  }
+  return <>Data is undefined</>;
 }
+
+function getJSXElement(
+  todos: Todos,
+  mutate: KeyedMutator<Todo[]>
+): JSX.Element {
+  return (
+    <Layout title="Todos app">
+      <div className="grid max-w-3xl px-8 mx-auto">
+        <section>
+          <header>
+            <h1 className="text-purple-400">Disney agenda</h1>
+          </header>
+
+          <AddTodo mutate={mutate} />
+
+          {todos.length ? (
+            <TodoList todos={todos} />
+          ) : (
+            <p className="text-center">No todos found</p>
+          )}
+        </section>
+      </div>
+    </Layout>
+  );
+}
+
 export function TodoList({ todos }: { todos: Todo[] }) {
   return (
     <>
@@ -99,3 +84,7 @@ export function TodoItem({
     </div>
   );
 }
+
+//// const { isLoading, error, isSuccess, data } = useQuery(["serverData"], () => ////   fetcher(token) //// );
+//// if (isLoading) return "Loading...";
+//// if (isSuccess) return getJSXElement(data);
