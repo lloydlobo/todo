@@ -1,17 +1,14 @@
+import { AppShell, Footer, Group, Header, Text } from "@mantine/core";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { ShiftM } from "../../lib/util";
-import {
-  ChevronRightIcon,
-  ChevronUpIcon,
-  CrossIcon,
-  PencilSquareIcon,
-  PlusSmallIcon,
-} from "../ui";
-import { Footer } from "./Footer";
+import { ChevronUpIcon } from "../ui";
+import { FooterShell } from "./Footer";
+// import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
+import { Sidebar } from "./Sidebar";
 
 // FIXME: Overflow x axis in main.
 export function Layout({
@@ -36,51 +33,82 @@ export function Layout({
 
   return (
     <>
-      <Head>
-        <title>{title ? `${title} | Todo` : "Todo"}</title>
-      </Head>
+      <AppShell
+        padding={0}
+        styles={{ main: {} }}
+        fixed
+        header={
+          <>
+            <Head>
+              <title>{title ? `${title} | Todo` : "Todo"}</title>
+            </Head>
 
-      <header className="relative">
-        <nav className="sticky top-0" id="nav">
-          <Navbar toggle={MenuButton(handleToggleClick, toggle)} />
-        </nav>
-        <ShiftM onPress={() => handleToggleShiftM()} />
-      </header>
+            <Header height={70}>
+              <nav className="sticky top-0" id="nav">
+                <Text
+                  className="absolute top-0 left-0 grid h-auto w-screen -translate-y-16 bg-gray7 focus-within:translate-y-20"
+                  weight={"bolder"}
+                >
+                  <a href="#mainContent">Skip to main content</a>
+                </Text>
+                <Navbar toggle={MenuButton(handleToggleClick, toggle)} />
+              </nav>
+              <ShiftM onPress={() => handleToggleShiftM()} />
+            </Header>
+          </>
+        }
+        footer={
+          <>
+            <FooterShell />
 
-      <div className="mx-auto grid w-screen place-content-center">
-        <div
-          className={`w-[100vw]  transition-all ${
-            toggle ? "container mx-0 flex" : "block"
-          }`}
-        >
-          <aside
-            ref={refAside}
-            aria-label="Sidebar"
-            className={`z-10 min-h-screen w-auto max-w-[40%] bg-gray7 shadow-md sm:w-auto
+            <div className="hidden">
+              <Footer height={"auto"} fixed={false} p="md">
+                <Group position="apart" spacing="xl">
+                  <Text size="sm">
+                    <span className="font-bold">List Time: </span>
+                    0h 25m
+                  </Text>
+                </Group>
+              </Footer>
+            </div>
+          </>
+        }
+      >
+        <div className="mx-auto grid w-screen place-content-center">
+          <div
+            className={`w-[100vw]  transition-all ${
+              toggle ? "container mx-0 flex" : "block"
+            }`}
+          >
+            <aside
+              ref={refAside}
+              aria-label="Sidebar"
+              className={`z-10 min-h-screen w-auto max-w-[40%] bg-gray7 shadow-md sm:w-auto
                 ${
                   !toggle
                     ? "absolute -translate-x-96 opacity-0 blur-xl transition-all ease-out"
                     : "relative translate-x-0 transition-all ease-in"
                 }`}
-          >
-            <Sidebar />
-          </aside>
+            >
+              <Sidebar />
+            </aside>
 
-          <div className="grid w-full">
-            <div className="container sticky top-[90vh] z-50 justify-end place-self-end transition-all">
-              <ScrollUp />
-            </div>
-            <div className="s-center mx-auto w-full">
-              <main className="container col-span-12 transition-all">
-                {children}
-              </main>
-              <footer className="w-full place-self-center">
-                <Footer />
-              </footer>
+            <div id="mainContent" className="grid w-full">
+              <div className="container sticky top-[90vh] z-50 justify-end place-self-end transition-all">
+                <ScrollUp />
+              </div>
+              <div className="s-center mx-auto w-full">
+                <main className="container col-span-12 transition-all">
+                  {children}
+                </main>
+                <footer className="w-full place-self-center">
+                  {/* <Footer /> */}
+                </footer>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </AppShell>
     </>
   );
 }
@@ -133,7 +161,7 @@ function ScrollUp(): JSX.Element {
         <button
           type="button"
           title="scroll up"
-          className=" btn btn-sm glow aspect-square rounded-full backdrop-blur-sm transition-all  hover:text-green-500"
+          className="btn btn-sm glow aspect-square rounded-full backdrop-blur-sm transition-all hover:text-green-500"
           onClick={(e) => handleOnClick(e)}
         >
           <ChevronUpIcon className="h-6 w-6 stroke-2 " />
@@ -254,169 +282,5 @@ export function MenuButton(
         </svg>
       </div>
     </button>
-  );
-}
-
-export function Sidebar() {
-  const boxes = [
-    {
-      title: "Today",
-      total: 1,
-      icon: <CrossIcon className="h-4 w-4" />,
-    },
-    {
-      title: "Scheduled",
-      total: 3,
-      icon: <CrossIcon className="h-4 w-4" />,
-    },
-    {
-      title: "All",
-      total: 60,
-      icon: <CrossIcon className="h-4 w-4" />,
-    },
-    {
-      title: "Flagged",
-      total: 0,
-      icon: <CrossIcon className="h-4 w-4" />,
-    },
-  ];
-
-  const lists = [];
-  lists.push(
-    {
-      title: "Todo List",
-      total: 1,
-      icon: <CrossIcon className="h-4 w-4" />,
-      items: boxes,
-      link: "#",
-      divider: true,
-      className: "border-b-2",
-    },
-    {
-      title: "2022 Goals",
-      total: 3,
-      icon: <CrossIcon className="h-4 w-4" />,
-      items: boxes,
-      link: "#",
-      divider: true,
-      className: "border-b-2",
-    },
-    {
-      title: "Article Items",
-      total: 60,
-      icon: <CrossIcon className="h-4 w-4" />,
-      items: boxes,
-      link: "#",
-      divider: true,
-      className: "border-b-2",
-    },
-    {
-      title: "School",
-      total: 1,
-      icon: <CrossIcon className="h-4 w-4" />,
-      items: boxes,
-      link: "#",
-      divider: true,
-      className: "border-b-2",
-    },
-    {
-      title: "Personal Finance",
-      total: 3,
-      icon: <CrossIcon className="h-4 w-4" />,
-      items: boxes,
-      link: "#",
-      divider: true,
-      className: "border-b-2",
-    },
-    {
-      title: "Work",
-      total: 60,
-      icon: <CrossIcon className="h-4 w-4" />,
-      items: boxes,
-      link: "#",
-      divider: true,
-      className: "border-b-2",
-    }
-  );
-
-  return (
-    <>
-      <div className="h-full overflow-y-auto bg-black/5 px-3 py-4 backdrop-blur-sm dark:bg-gray5">
-        <section title="tabs-overview" className="">
-          <header>
-            <h2 className="sr-only">Tasks total</h2>
-          </header>
-          <div className="grid grid-cols-2 gap-3">
-            {boxes.map((box, index) => (
-              <div key={`${index}-${box.title}`} className="box box-card">
-                <div className="grid grid-flow-col items-center justify-between px-1 py-1">
-                  <div className="grid gap-2">
-                    <div className="grid aspect-square h-6 w-6 place-content-center items-center rounded-full bg-gray7 p-2">
-                      <i>{box.icon}</i>
-                    </div>
-                    <span className="font-display font-bold sm:text-xs">
-                      {box.title}
-                    </span>
-                  </div>
-                  <output className="output place-self-start text-2xl font-bold">
-                    {box.total}
-                  </output>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section title="my-lists">
-          <header>
-            <h2>My Lists</h2>
-          </header>
-          <div className="grid divide-y-2 divide-gray7/30 rounded-t-lg bg-gray6">
-            {lists.map((list, index) => (
-              <div
-                key={`${index}-${list.title}`}
-                className="box-rect box-transparent"
-              >
-                <div className="grid grid-flow-col items-center justify-between px-1 py-1 ">
-                  <div className="flex items-center gap-2">
-                    <div className="grid aspect-square h-6 w-6 place-content-center items-center rounded-full bg-gray7 p-2">
-                      <i>{list.icon}</i>
-                    </div>
-                    <div className="text-md grid gap-2">{list.title}</div>
-                  </div>
-                  <div className="total-end grid grid-flow-col items-center text-gray3">
-                    <output className="font-display text-lg">
-                      {list.total}
-                    </output>
-                    <ChevronRightIcon className="h-4 w-4" />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-        <nav>
-          <div className="overflow-y-hidden bg-gray7/5 backdrop-blur-lg">
-            {/* <div className="absolute left-0 right-0 -z-10 h-[4.5rem] w-[110%] bg-gray5" /> */}
-            <div className="grid grid-cols-2 items-center justify-between gap-2 px-2 py-4">
-              <button className="btn glow btn-ghost">
-                <div className="flex items-center gap-2">
-                  <PlusSmallIcon />
-                  New Reminder
-                </div>
-              </button>
-              <button className="glow btn btn-ghost items-center place-self-end">
-                <div className="flex items-center gap-2">
-                  <div className="hidden">
-                    <PencilSquareIcon />
-                  </div>
-                  Add List
-                </div>
-              </button>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </>
   );
 }
