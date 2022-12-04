@@ -94,6 +94,7 @@ export default function TodosPage() {
                     <TextInput
                       label="Title"
                       placeholder="Title"
+                      autoFocus
                       {...form.getInputProps("title")}
                     />
                     <TextInput

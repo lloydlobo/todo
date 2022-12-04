@@ -38,6 +38,7 @@ func mainRun() {
 	}))
 
 	todos := []Todo{}
+	cache := []Todo{}
 
 	app.Get("/healthcheck", handleHealthCheck)
 
@@ -48,12 +49,13 @@ func mainRun() {
 		if err := c.BodyParser(todo); err != nil {
 			return err
 		}
-		todo.ID = len(todos) + 1
+		todo.ID = len(todos) + 1 + len(cache)
 		// Append new todo to array of todos.
 		todos = append(todos, *todo) // dereference the pointer.
 		return c.JSON(todos)         // SendString sets the HTTP response body  for string type.
 	})
 
+	// FIXME: ids aren't unique after updating.
 	app.Patch("/api/todos/:id/update", func(c *fiber.Ctx) error {
 		id, err := c.ParamsInt(("id"))
 		if err != nil {
@@ -73,7 +75,7 @@ func mainRun() {
 				break
 			}
 		}
-		return c.JSON((todos))
+		return c.JSON(todos)
 	})
 
 	app.Patch("/api/todos/:id/uncompleted", func(c *fiber.Ctx) error {
@@ -115,6 +117,7 @@ func mainRun() {
 			a[2:]  // same as a[2 : len(a)] // a[:3]  // same as a[0 : 3] // a[:]   // same as a[0 : len(a)] */
 		for idx, todo := range todos {
 			if todo.ID == id {
+				cache = append(cache, todo)
 				todos = append(todos[:idx], todos[idx+1:]...)
 				break
 			}
