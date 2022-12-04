@@ -77,35 +77,35 @@ export default function Home() {
             </section>
 
             <section className="mt-12">
-              <Group style={{ color: theme.colors.gray[2] }}>
-                <ScrollShow repeat={true}>
-                  {/* <scroll-show repeat=""></scroll-show> */}
-                  <div className="mx-auto flex max-w-3xl flex-col items-center justify-center ">
-                    <header>
-                      <a id="truth">
-                        <h2 className="inline-block bg-red-500 px-6 py-4 text-6xl font-bold uppercase text-gray7 shadow-xl">
-                          Lorem ipsum
-                        </h2>
-                      </a>
-                    </header>
-                    <div className="grid text-center font-display">
-                      <div className="icon animate-bounce text-5xl">🚀</div>
-                      <p className="font-display text-5xl text-gray3">
-                        Lorem{" "}
-                        <span className="animate-pulse font-extrabold uppercase text-red-500">
-                          dolo&apos;r
-                        </span>{" "}
-                        ipsum, dolor sit amet consectetur
+              {/* <Group style={{ color: theme.colors.gray[2] }}> */}
+              <ScrollShow repeat={true}>
+                {/* <scroll-show repeat=""></scroll-show> */}
+                <div className="mx-auto flex max-w-3xl flex-col items-center justify-center ">
+                  <header>
+                    <a id="truth">
+                      <h2 className="inline-block bg-red-500 px-6 py-4 text-6xl font-bold uppercase text-gray7 shadow-xl">
+                        Lorem ipsum
+                      </h2>
+                    </a>
+                  </header>
+                  <div className="grid text-center font-display">
+                    <div className="icon animate-bounce text-5xl">🚀</div>
+                    <p className="font-display text-5xl text-gray3">
+                      Lorem{" "}
+                      <span className="animate-pulse font-extrabold uppercase text-red-500">
+                        dolo&apos;r
+                      </span>{" "}
+                      ipsum, dolor sit amet consectetur
+                    </p>
+                    <a href="#">
+                      <p className="animate-bounce text-xl lowercase tracking-wide">
+                        Lorem ipsum 🚀
                       </p>
-                      <a href="#">
-                        <p className="animate-bounce text-xl lowercase tracking-wide">
-                          Lorem ipsum 🚀
-                        </p>
-                      </a>
-                    </div>
+                    </a>
                   </div>
-                </ScrollShow>
-              </Group>
+                </div>
+              </ScrollShow>
+              {/* </Group> */}
             </section>
 
             <section

@@ -1,25 +1,20 @@
 // prettier-ignore
-import { Button, Center, Checkbox, Container, Flex, Grid, Group, List, Modal, Notification, SimpleGrid, TextInput,
-} from "@mantine/core";
+import { ActionIcon, Button, Center, Checkbox, Container, Flex, Grid, Group, List, Modal, Notification, SimpleGrid, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { IconDatabase, IconGripVertical, IconX } from "@tabler/icons";
+import {
+  IconDatabase,
+  IconGripVertical,
+  IconTrash,
+  IconX,
+} from "@tabler/icons";
 import { useState } from "react";
 import useSWR from "swr";
-import { Layout } from "../../components";
+import { Layout, PlusIcon } from "../../components";
 import { fetcher } from "../../lib/api";
 import { ENDPOINT, TOKEN } from "../../lib/constants";
 import { Todo } from "../../lib/interfaces";
 import { SchemaTodos } from "../../lib/schemas";
 
-const stylesTextInput = (theme) => ({
-  input: {
-    borderColor: "transparent",
-    "&:focus-within": {
-      borderColor: theme.colors.orange[7],
-    },
-    backgroundColor: "transparent",
-  },
-});
 export default function TodosPage() {
   const [opened, setOpened] = useState(false);
   const form = useForm({
@@ -49,6 +44,14 @@ export default function TodosPage() {
     mutate(updated); // Mutating here helps to quickly update todo app ui.
   };
 
+  const handleDeleteTodo = async (id: Todo["id"]) => {
+    const inputURL = `${ENDPOINT}/${TOKEN}/${id}/delete`;
+    const updated = await fetch(inputURL, { method: "DELETE" }).then(
+      (response) => response.json()
+    );
+    mutate(updated);
+  };
+
   const handleOnChange = async (checked: boolean, id: Todo["id"]) => {
     const inputURL = `${ENDPOINT}/${TOKEN}/${id}/${
       checked ? "completed" : "uncompleted"
@@ -59,6 +62,8 @@ export default function TodosPage() {
     mutate(updated);
   };
 
+  // TODO The PUT method // https://medium.com/@9cv9official/what-are-get-post-put-patch-delete-a-walkthrough-with-javascripts-fetch-api-17be31755d28
+  // The PUT method is most often used to update an existing resource. If you want to update a specific resource (which comes with a specific URI), you can call the PUT method to that resource URI with the request body containing the complete new version of the resource you are trying to update.
   return (
     <>
       <Layout title="Todos">
@@ -92,7 +97,7 @@ export default function TodosPage() {
                         variant="outline"
                         type="submit"
                       >
-                        Set random values
+                        Add todo
                       </Button>
                     </Group>
                   </form>
@@ -103,7 +108,10 @@ export default function TodosPage() {
 
           <Group position="center">
             <Button onClick={() => setOpened(true)} variant="outline">
-              Open Modal
+              <Flex align="center" justify={"start"} gap={4}>
+                <PlusIcon className="h-auto w-auto" />
+                Create
+              </Flex>
             </Button>
           </Group>
         </>
@@ -117,19 +125,26 @@ export default function TodosPage() {
               {data.map((todo) => (
                 <div
                   key={`todo__list${todo.id}`}
-                  className="transition-all hover:bg-gray6/40"
+                  className="px-2 transition-all hover:bg-gray6/40"
                 >
-                  <div className="flex items-start gap-4 py-1">
-                    <Flex align={"start"} mt={12} gap={4}>
-                      <IconGripVertical size={18} />
-                      <Checkbox
-                        defaultChecked={todo.completed} // label={todo.title}
-                        onChange={({ target }) =>
-                          handleOnChange(target.checked, todo.id)
-                        }
-                      />
+                  <div className="flex items-start gap-2 py-1">
+                    <Flex align={"center"} justify="center" mt={12} gap={4}>
+                      <ActionIcon>
+                        <IconGripVertical size={18} />
+                      </ActionIcon>
+                      <ActionIcon onClick={() => handleDeleteTodo(todo.id)}>
+                        <IconTrash />
+                      </ActionIcon>
+                      <ActionIcon className="items-center">
+                        <Checkbox
+                          defaultChecked={todo.completed} // label={todo.title}
+                          onChange={({ target }) =>
+                            handleOnChange(target.checked, todo.id)
+                          }
+                        />
+                      </ActionIcon>
                     </Flex>
-                    <Flex direction={"column"} className="w-full">
+                    <Flex direction={"column"} className="w-full px-4">
                       <TextInput
                         styles={(theme) => ({
                           input: {

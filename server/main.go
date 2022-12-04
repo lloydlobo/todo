@@ -80,6 +80,23 @@ func mainRun() {
 		}
 		return c.JSON(todos)
 	})
+	app.Delete("/api/todos/:id/delete", func(c *fiber.Ctx) error {
+		id, err := c.ParamsInt(("id"))
+		if err != nil {
+			return c.Status(401).SendString("Invalid id")
+		}
+		// TODO Implement this copy slice.
+		var copyTodos []Todo
+		copy(todos, copyTodos)
+
+		for idx, todo := range todos {
+			if todo.ID == id {
+				todos = append(todos[:idx], todos[idx+1:]...)
+				break
+			}
+		}
+		return c.JSON(todos)
+	})
 
 	app.Get("/api/todos", func(c *fiber.Ctx) error {
 		return c.JSON(todos)
