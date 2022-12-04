@@ -37,22 +37,24 @@ export default function TodosPage() {
   // prettier-ignore
   if (!validSchema.success) return ( <NotificationError title="Runtime error: Type check validation failed!" message={validSchema.error.message} />);
 
-  // TODO: Append existing values while adding new todo?
-  const handleAddTodo = (values: unknown) => {
-    const updated = fetch(`${ENDPOINT}/${{ TOKEN }}`, {
+  const handleAddTodo = async (values: unknown) => {
+    const updated = await fetch(`${ENDPOINT}/${TOKEN}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     }).then((response) => response.json());
     form.reset();
-    mutate(updated);
+    setOpened(false);
+    mutate(updated); // Mutating here helps to quickly update todo app ui.
   };
 
   const handleOnChange = async (checked: boolean, id: Todo["id"]) => {
-    const updated = await fetch(
-      `${ENDPOINT}/${TOKEN}/${id}/${checked ? "completed" : "uncompleted"}`,
-      { method: "PATCH" }
-    ).then((response) => response.json());
+    const inputURL = `${ENDPOINT}/${TOKEN}/${id}/${
+      checked ? "completed" : "uncompleted"
+    }`;
+    const updated = await fetch(inputURL, { method: "PATCH" }).then(
+      (response) => response.json()
+    );
     mutate(updated);
   };
 
@@ -104,22 +106,25 @@ export default function TodosPage() {
             </Button>
           </Group>
         </>
-        <Container mt={50}>
-          <Center>
-            <SimpleGrid cols={1} spacing="sm">
-              {data.map((todo) => (
-                <Checkbox
-                  key={`todo__list${todo.id}`}
-                  defaultChecked={todo.completed}
-                  label={todo.title}
-                  onChange={({ target }) =>
-                    handleOnChange(target.checked, todo.id)
-                  }
-                />
-              ))}
-            </SimpleGrid>
-          </Center>
-        </Container>
+
+        <>
+          <Container mt={50}>
+            <Center>
+              <SimpleGrid cols={1} spacing="sm">
+                {data.map((todo) => (
+                  <Checkbox
+                    key={`todo__list${todo.id}`}
+                    defaultChecked={todo.completed}
+                    label={todo.title}
+                    onChange={({ target }) =>
+                      handleOnChange(target.checked, todo.id)
+                    }
+                  />
+                ))}
+              </SimpleGrid>
+            </Center>
+          </Container>
+        </>
       </Layout>
     </>
   );

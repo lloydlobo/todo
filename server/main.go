@@ -57,13 +57,25 @@ func mainRun() {
 		return c.JSON(todos) // SendString sets the HTTP response body  for string type.
 	})
 
-	app.Patch("/api/todos/:id/completed", func(c *fiber.Ctx) error {
-
+	app.Patch("/api/todos/:id/uncompleted", func(c *fiber.Ctx) error {
 		id, err := c.ParamsInt(("id"))
 		if err != nil {
 			return c.Status(401).SendString("Invalid id")
 		}
+		for idx, todo := range todos {
+			if todo.ID == id {
 
+				todos[idx].Completed = false
+				break
+			}
+		}
+		return c.JSON(todos)
+	})
+	app.Patch("/api/todos/:id/completed", func(c *fiber.Ctx) error {
+		id, err := c.ParamsInt(("id"))
+		if err != nil {
+			return c.Status(401).SendString("Invalid id")
+		}
 		for idx, todo := range todos {
 			if todo.ID == id {
 				todos[idx].Completed = true
