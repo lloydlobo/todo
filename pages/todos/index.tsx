@@ -1,16 +1,8 @@
-import {
-  Button,
-  Center,
-  Checkbox,
-  Container,
-  Group,
-  Modal,
-  Notification,
-  SimpleGrid,
-  TextInput,
+// prettier-ignore
+import { Button, Center, Checkbox, Container, Flex, Grid, Group, List, Modal, Notification, SimpleGrid, TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { IconDatabase, IconX } from "@tabler/icons";
+import { IconDatabase, IconGripVertical, IconX } from "@tabler/icons";
 import { useState } from "react";
 import useSWR from "swr";
 import { Layout } from "../../components";
@@ -19,6 +11,15 @@ import { ENDPOINT, TOKEN } from "../../lib/constants";
 import { Todo } from "../../lib/interfaces";
 import { SchemaTodos } from "../../lib/schemas";
 
+const stylesTextInput = (theme) => ({
+  input: {
+    borderColor: "transparent",
+    "&:focus-within": {
+      borderColor: theme.colors.orange[7],
+    },
+    backgroundColor: "transparent",
+  },
+});
 export default function TodosPage() {
   const [opened, setOpened] = useState(false);
   const form = useForm({
@@ -109,20 +110,60 @@ export default function TodosPage() {
 
         <>
           <Container mt={50}>
-            <Center>
-              <SimpleGrid cols={1} spacing="sm">
-                {data.map((todo) => (
-                  <Checkbox
-                    key={`todo__list${todo.id}`}
-                    defaultChecked={todo.completed}
-                    label={todo.title}
-                    onChange={({ target }) =>
-                      handleOnChange(target.checked, todo.id)
-                    }
-                  />
-                ))}
-              </SimpleGrid>
-            </Center>
+            <Flex
+              direction={"column"}
+              className="w-full divide-y-2 divide-gray6"
+            >
+              {data.map((todo) => (
+                <div
+                  key={`todo__list${todo.id}`}
+                  className="transition-all hover:bg-gray6/40"
+                >
+                  <div className="flex items-start gap-4 py-1">
+                    <Flex align={"start"} mt={12} gap={4}>
+                      <IconGripVertical size={18} />
+                      <Checkbox
+                        defaultChecked={todo.completed} // label={todo.title}
+                        onChange={({ target }) =>
+                          handleOnChange(target.checked, todo.id)
+                        }
+                      />
+                    </Flex>
+                    <Flex direction={"column"} className="w-full">
+                      <TextInput
+                        styles={(theme) => ({
+                          input: {
+                            borderColor: "transparent",
+                            "&:focus-within": {
+                              borderColor: theme.colors.gray[7],
+                            },
+                            backgroundColor: "transparent",
+                          },
+                        })}
+                        placeholder={"Title"}
+                        className="w-full"
+                        defaultValue={todo.title} // {...form.getInputProps(`${todo}.title`)}
+                      />
+                      <TextInput
+                        styles={(theme) => ({
+                          input: {
+                            borderColor: "transparent",
+                            "&:focus-within": {
+                              borderColor: theme.colors.gray[7],
+                            },
+                            backgroundColor: "transparent",
+                            fontSize: theme.fontSizes.xs,
+                          },
+                        })}
+                        placeholder="Body"
+                        className="w-full"
+                        defaultValue={todo.body}
+                      />
+                    </Flex>
+                  </div>
+                </div>
+              ))}
+            </Flex>
           </Container>
         </>
       </Layout>

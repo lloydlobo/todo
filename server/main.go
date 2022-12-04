@@ -44,17 +44,14 @@ func mainRun() {
 	// Post a todo.
 	app.Post("/api/todos", func(c *fiber.Ctx) error {
 		todo := &Todo{}
-
 		// Parser can throw an error.
 		if err := c.BodyParser(todo); err != nil {
 			return err
 		}
 		todo.ID = len(todos) + 1
-
 		// Append new todo to array of todos.
-		todos = append(todos, *todo) // dereference it.
-
-		return c.JSON(todos) // SendString sets the HTTP response body  for string type.
+		todos = append(todos, *todo) // dereference the pointer.
+		return c.JSON(todos)         // SendString sets the HTTP response body  for string type.
 	})
 
 	app.Patch("/api/todos/:id/uncompleted", func(c *fiber.Ctx) error {
@@ -64,7 +61,6 @@ func mainRun() {
 		}
 		for idx, todo := range todos {
 			if todo.ID == id {
-
 				todos[idx].Completed = false
 				break
 			}
