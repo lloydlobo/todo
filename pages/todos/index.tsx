@@ -1,10 +1,12 @@
 // prettier-ignore
-import { ActionIcon, Button, Center, Checkbox, Container, Flex, Grid, Group, List, Modal, Notification, SimpleGrid, TextInput } from "@mantine/core";
+import { ActionIcon, Button, Center, Checkbox, Container, Flex, Grid, Group, List, Modal, Notification, SimpleGrid, TextInput, UnstyledButton } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import {
   IconDatabase,
+  IconEdit,
   IconGripVertical,
   IconTrash,
+  IconUpload,
   IconX,
 } from "@tabler/icons";
 import { useState } from "react";
@@ -44,6 +46,15 @@ export default function TodosPage() {
     mutate(updated); // Mutating here helps to quickly update todo app ui.
   };
 
+  const handleUpdateTodo = async (id: Todo["id"], values: unknown) => {
+    const updated = await fetch(`${ENDPOINT}/${TOKEN}/${id}/update`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    }).then((response) => response.json());
+    mutate(updated); // Mutating here helps to quickly update todo app ui.
+  };
+
   const handleDeleteTodo = async (id: Todo["id"]) => {
     const inputURL = `${ENDPOINT}/${TOKEN}/${id}/delete`;
     const updated = await fetch(inputURL, { method: "DELETE" }).then(
@@ -72,7 +83,7 @@ export default function TodosPage() {
             <Modal
               opened={opened}
               onClose={() => setOpened(false)}
-              title="Introduce yourself!"
+              title="Add new todo"
             >
               {/* Modal content */}
               <Container mt={50}>
@@ -122,66 +133,160 @@ export default function TodosPage() {
               direction={"column"}
               className="w-full divide-y-2 divide-gray6"
             >
-              {data.map((todo) => (
-                <div
-                  key={`todo__list${todo.id}`}
-                  className="px-2 transition-all hover:bg-gray6/40"
-                >
-                  <div className="flex items-start gap-2 py-1">
-                    <Flex align={"center"} justify="center" mt={12} gap={4}>
-                      <ActionIcon>
-                        <IconGripVertical size={18} />
-                      </ActionIcon>
-                      <ActionIcon onClick={() => handleDeleteTodo(todo.id)}>
-                        <IconTrash />
-                      </ActionIcon>
-                      <ActionIcon className="items-center">
-                        <Checkbox
-                          defaultChecked={todo.completed} // label={todo.title}
-                          onChange={({ target }) =>
-                            handleOnChange(target.checked, todo.id)
-                          }
-                        />
-                      </ActionIcon>
-                    </Flex>
-                    <Flex direction={"column"} className="w-full px-4">
-                      <TextInput
-                        styles={(theme) => ({
-                          input: {
-                            borderColor: "transparent",
-                            "&:focus-within": {
-                              borderColor: theme.colors.gray[7],
-                            },
-                            backgroundColor: "transparent",
-                          },
-                        })}
-                        placeholder={"Title"}
-                        className="w-full"
-                        defaultValue={todo.title} // {...form.getInputProps(`${todo}.title`)}
-                      />
-                      <TextInput
-                        styles={(theme) => ({
-                          input: {
-                            borderColor: "transparent",
-                            "&:focus-within": {
-                              borderColor: theme.colors.gray[7],
-                            },
-                            backgroundColor: "transparent",
-                            fontSize: theme.fontSizes.xs,
-                          },
-                        })}
-                        placeholder="Body"
-                        className="w-full"
-                        defaultValue={todo.body}
-                      />
-                    </Flex>
-                  </div>
-                </div>
+              {data.map((todo, index) => (
+                <TodoItem
+                  key={`todo__${index}__${todo.id}`}
+                  todo={todo}
+                  handleDeleteTodo={handleDeleteTodo}
+                  handleOnChange={handleOnChange}
+                  handleUpdateTodo={handleUpdateTodo}
+                />
               ))}
             </Flex>
           </Container>
         </>
       </Layout>
+    </>
+  );
+}
+
+function TodoItem({
+  todo,
+  handleDeleteTodo,
+  handleOnChange,
+  handleUpdateTodo,
+}: {
+  todo: Todo;
+  handleDeleteTodo: (id: Todo["id"]) => Promise<void>;
+  handleOnChange: (checked: boolean, id: Todo["id"]) => Promise<void>;
+  handleUpdateTodo: (id: Todo["id"], values: unknown) => Promise<void>;
+}): JSX.Element {
+  const [edit, setEdit] = useState(false);
+  const form = useForm<Todo>({
+    initialValues: {
+      id: todo.id,
+      userId: todo.userId,
+      title: todo.title,
+      body: todo.body,
+      completed: todo.completed,
+    },
+    validate: {
+      title: (value) =>
+        value.length < 2 ? "Title must have atlest 2 letters." : null,
+      // body: (value) => value.length < 2 ? "Body must have atlest 2 letters." : null,
+    },
+  });
+
+  const onUpdateClick = (id: Todo["id"], values: Todo) => {
+    setEdit(false);
+    handleUpdateTodo(todo.id, form.values);
+  };
+
+  return (
+    <>
+      <div
+        className={`todo ${
+          !edit ? "" : "editing py-4 font-bold shadow-3xl"
+        } px-2 transition-all`}
+      >
+        <form
+          onSubmit={form.onSubmit((values) => console.log(values))}
+          className=" flex items-start gap-2 py-1"
+        >
+          <Flex
+            title="todo actions"
+            align={"center"}
+            mt={12}
+            gap={16}
+            className={`todo__actions`}
+          >
+            <UnstyledButton>
+              <IconGripVertical size={18} />
+            </UnstyledButton>
+            <Flex direction={"row"}>
+              <UnstyledButton onClick={() => handleDeleteTodo(todo.id)}>
+                <IconTrash />
+              </UnstyledButton>
+              {!edit ? (
+                <ActionIcon type="button" onClick={() => setEdit(!edit)}>
+                  <IconEdit />
+                </ActionIcon>
+              ) : (
+                <ActionIcon
+                  type="submit"
+                  onClick={() =>
+                    onUpdateClick(form.getInputProps("id"), form.values)
+                  }
+                >
+                  <IconUpload />
+                </ActionIcon>
+              )}
+            </Flex>
+            <ActionIcon className="items-center">
+              <Checkbox
+                defaultChecked={{ ...form.getInputProps(`completed`) }.value} // label={todo.title}
+                onChange={({ target }) =>
+                  handleOnChange(target.checked, todo.id)
+                }
+              />
+            </ActionIcon>
+          </Flex>
+
+          <Flex
+            title="todo content"
+            direction={"column"}
+            className="w-full px-4"
+          >
+            <TextInput
+              styles={(theme) => ({
+                input: {
+                  borderColor: "transparent",
+                  "&:focus-within": {
+                    borderColor: theme.colors.gray[7],
+                  },
+                  backgroundColor: "transparent",
+                },
+              })}
+              disabled={!edit}
+              placeholder={"Title"}
+              className="w-full"
+              {...form.getInputProps(`title`)}
+            />
+            <TextInput
+              styles={(theme) => ({
+                input: {
+                  borderColor: "transparent",
+                  "&:focus-within": {
+                    borderColor: theme.colors.gray[7],
+                  },
+                  backgroundColor: "transparent",
+                  fontSize: theme.fontSizes.xs,
+                },
+              })}
+              placeholder="Body"
+              disabled={!edit}
+              className="w-full"
+              {...form.getInputProps(`body`)}
+            />
+          </Flex>
+        </form>
+      </div>
+
+      <style>
+        {`
+      .todo__actions{
+        opacity: 0.5
+      }
+
+      .todo.editing .todo__actions {
+        opacity: 1.0
+      }
+
+      .todo:hover .todo__actions {
+        opacity: 1.0;
+      }
+      `}
+      </style>
     </>
   );
 }

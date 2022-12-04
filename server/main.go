@@ -54,6 +54,28 @@ func mainRun() {
 		return c.JSON(todos)         // SendString sets the HTTP response body  for string type.
 	})
 
+	app.Patch("/api/todos/:id/update", func(c *fiber.Ctx) error {
+		id, err := c.ParamsInt(("id"))
+		if err != nil {
+			return c.Status(401).SendString("Invalid id")
+		}
+		// BodyParser binds the request body to a struct. It supports decoding
+		// the following content types based on the Content-Type header:
+		todo := &Todo{}
+		if err := c.BodyParser((todo)); err != nil {
+			return err
+		}
+		for idx, t := range todos {
+			if t.ID == id {
+				todos[idx].Title = todo.Title
+				todos[idx].Body = todo.Body
+				todos[idx].Completed = todo.Completed
+				break
+			}
+		}
+		return c.JSON((todos))
+	})
+
 	app.Patch("/api/todos/:id/uncompleted", func(c *fiber.Ctx) error {
 		id, err := c.ParamsInt(("id"))
 		if err != nil {
@@ -85,10 +107,12 @@ func mainRun() {
 		if err != nil {
 			return c.Status(401).SendString("Invalid id")
 		}
-		// TODO Implement this copy slice.
-		var copyTodos []Todo
-		copy(todos, copyTodos)
-
+		/*	https://go.dev/ref/spec#Slice_expressions
+			a[low : high] // Simple slice expressions: The primary expression.
+			a := [5]int{1, 2, 3, 4, 5} // s := a[1:4]
+			the slice s has type []int, length 3, capacity 4, and elements
+			s[0] == 2 // s[1] == 3 // s[2] == 4
+			a[2:]  // same as a[2 : len(a)] // a[:3]  // same as a[0 : 3] // a[:]   // same as a[0 : len(a)] */
 		for idx, todo := range todos {
 			if todo.ID == id {
 				todos = append(todos[:idx], todos[idx+1:]...)
