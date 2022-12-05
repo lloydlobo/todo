@@ -1,12 +1,12 @@
+import { Center } from "@mantine/core";
 import useSWR from "swr";
 import { DivderPill, Layout } from "../components";
 import { ENDPOINT_EXPRESS, ENDPOINT_EXPRESS_TOKEN } from "../lib/constants";
+import { Todo } from "../lib/interfaces";
 import { NotificationError } from "./todos";
 
-const fetcher = async (urlToken: string) => {
-  return await fetch(`${ENDPOINT_EXPRESS}/${urlToken}`).then((res) =>
-    res.json()
-  );
+const fetcher = async (url: string) => {
+  return await fetch(url).then((res) => res.json());
 };
 /* 	// Use a new CORS application.
 	app.Use(cors.New(cors.Config{
@@ -14,7 +14,10 @@ const fetcher = async (urlToken: string) => {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	})) */
 export default function About() {
-  const { data, error } = useSWR(ENDPOINT_EXPRESS_TOKEN, fetcher);
+  const { data, error } = useSWR<Todo[]>(
+    "http://localhost:5000/api/todos",
+    fetcher
+  );
   if (error)
     return <NotificationError title={"Server error: useSWR"} message={error} />;
   if (!data)
@@ -27,6 +30,18 @@ export default function About() {
         <header>
           <h1 className="text-center">About Page</h1>
           <DivderPill />
+          <div className="todos">
+            <Center>
+              {data.map((todo) => (
+                <div key={todo.id} className="flex gap-4">
+                  <p>{todo.title}</p>
+                  <p>{todo.body}</p>
+                  <p>{todo.completed}</p>
+                  <p>{todo.userId}</p>
+                </div>
+              ))}
+            </Center>
+          </div>
         </header>
       </section>
     </Layout>
