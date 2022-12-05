@@ -66,13 +66,22 @@ router.get("/getAll", async (req, res) => {
 });
 
 /** @GET by ID Method. */
-router.get("/getOne/:id", (req, res) => {
-  res.send("GET by ID API");
+router.get("/getOne/:id", async (req, res) => {
+  try {
+    const data = await Model.findById(req.params.id);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 /** @UPDATE by ID Method. */
 router.patch("/update/:id", (req, res) => {
-  res.send("UPDATE by ID API");
+  try {
+    // const data = await Model.findById()
+  } catch (err) {
+    res.send(500).json({ message: err.message });
+  }
 });
 
 /** @DELETE by ID Method. */
