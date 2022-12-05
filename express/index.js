@@ -3,9 +3,12 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const routes = require("./routes/routes"); // Create routes for Endpoints.
 const mongoose = require("mongoose");
+
 const mongoString = process.env.MONGODB_URI;
 mongoose.connect(mongoString);
+
 const DB = mongoose.connection;
 
 DB.on("error", (error) => {
@@ -22,6 +25,14 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+/**
+ * Using routes from ./routes/routes
+ * @param {string} "/api" - base endpoint.
+ * @param {Router} routes - contents of routes.
+ * @returns {any}
+ */
+app.use("/api", routes);
 
 /** @route "/" */
 app.get("/", (req, res) => {
