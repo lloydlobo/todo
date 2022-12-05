@@ -121,7 +121,7 @@ export default function TodosPage() {
           <Group position="center">
             <Button onClick={() => setOpened(true)} variant="outline">
               <Flex align="center" justify={"start"} gap={4}>
-                <PlusIcon className="h-auto w-auto" />
+                <PlusIcon className="w-auto h-auto" />
                 Create
               </Flex>
             </Button>
@@ -192,7 +192,7 @@ function TodoItem({
       >
         <form
           onSubmit={form.onSubmit((values) => console.log(values))}
-          className=" flex items-start gap-2 py-1"
+          className="flex items-start gap-2 py-1 "
         >
           <Flex
             title="todo actions"
