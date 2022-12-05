@@ -24,13 +24,13 @@ and, req to receive requests from client. */
 
 /**
  * @POST Method.
- * @route '/api/post'
+ * @route "/api/post".
  *
  * Parse data from req body.
  * @try await save data response and send as 200 status response. Saves this
  * document by inserting a new document into the database if is `true`, or sends
  * an operation with just the modified paths if `isNew` is `false`.
- * @catch {err} if any, and send 400 status response.
+ * @catch {err} if any, and send 400 client side status response.
  *
  * @res { "name": string, "age": number, "_id": string, "__v": integer }
  */
@@ -44,13 +44,25 @@ router.post("/post", async (req, res) => {
     const dataToSave = await data.save();
     res.status(200).json(dataToSave);
   } catch (err) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
-/** @GET all Method. */
-router.get("/getAll", (req, res) => {
-  res.send("GET All API");
+/**
+ * @GET all Method.
+ * @route "/api/getAll".
+ *
+ * @try Use find method on Model to get all data from DB.
+ * @catch send a 500 server side error response if find fails.
+ */
+router.get("/getAll", async (req, res) => {
+  try {
+    const data = await Model.find();
+    // HACK: Do we need to send status? Also 200 or 201?
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 /** @GET by ID Method. */
