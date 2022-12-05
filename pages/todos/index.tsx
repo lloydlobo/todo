@@ -121,7 +121,7 @@ export default function TodosPage() {
           <Group position="center">
             <Button onClick={() => setOpened(true)} variant="outline">
               <Flex align="center" justify={"start"} gap={4}>
-                <PlusIcon className="w-auto h-auto" />
+                <PlusIcon className="h-auto w-auto" />
                 Create
               </Flex>
             </Button>
