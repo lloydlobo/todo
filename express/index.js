@@ -23,7 +23,9 @@ const PORT = process.env.PORT || 5000;
 /** @sources https://www.freecodecamp.org/news/build-a-restful-api-using-node-express-and-mongodb/ */
 const app = express();
 
+/** Validate request app's API to pass through CORS */
 app.use(cors());
+/** Connect to Middleware and parse by default http body to JSON. */
 app.use(express.json());
 
 /**
