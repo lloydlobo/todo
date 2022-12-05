@@ -14,7 +14,8 @@ const fetcher = async (url: string) => {
   AllowOrigins: "http://localhost:3000",
   AllowHeaders: "Origin, Content-Type, Accept",
  })) */
-const EXPRESS_ENDPOINT = "http://localhost:5000/api/todos";
+// const EXPRESS_ENDPOINT = "http://localhost:5000/api/todos";
+const EXPRESS_ENDPOINT = "https://todo-6a68.onrender.com/api/todos";
 export default function About() {
   const { data, error, mutate } = useSWR<Todo[]>(EXPRESS_ENDPOINT, fetcher);
   //   const form = useForm();

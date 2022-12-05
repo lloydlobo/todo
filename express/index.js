@@ -1,7 +1,19 @@
 // Entry point for application.
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const mongoString = process.env.MONGODB_URI;
+mongoose.connect(mongoString);
+const DB = mongoose.connection;
+
+DB.on("error", (error) => {
+  console.log(error);
+});
+DB.once("connected", () => {
+  console.log("Database connected");
+});
 
 const PORT = process.env.PORT || 5000;
 
