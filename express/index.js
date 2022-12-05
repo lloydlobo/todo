@@ -1,6 +1,6 @@
 // Entry point for application.
-const cors = require("cors");
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 5000;
@@ -13,11 +13,7 @@ app.use(express.json());
 
 /** @route "/" */
 app.get("/", (req, res) => {
-  res.send({
-    message: "Entrypoint for application",
-    route: "/",
-    port: PORT,
-  });
+  res.send({ message: "Entrypoint for application", route: "/", port: PORT });
 });
 
 /** @route "/api/" */
@@ -74,17 +70,34 @@ app.get("/api", (req, res) => {
 });
 
 const todosInitialValues = [
-  {
-    id: 0,
-    userId: 0,
-    title: "Test 1",
-    body: "Body test 1",
-    completed: false,
-  },
+  { id: 1, userId: 0, title: "Test 1", body: "Body test 1", completed: false },
+  { id: 2, userId: 0, title: "Test 2", body: "Body test 2", completed: false },
+  { id: 3, userId: 0, title: "Test 3", body: "Body test 3", completed: false },
 ];
 
 /** @route "/api/todos" */
 app.get("/api/todos", (req, res) => {
+  res.json(todosInitialValues);
+});
+
+/** @route "/api/todos/:id/completed" */
+app.patch("/api/todos/:id/completed", (req, res) => {
+  const id = req.params.id;
+  todosInitialValues.forEach((todo) => {
+    if (todo.id === Number(id)) {
+      todo.completed = true;
+    }
+  });
+  res.json(todosInitialValues);
+});
+
+app.patch("/api/todos/:id/uncompleted", (req, res) => {
+  const id = req.params.id;
+  todosInitialValues.forEach((todo) => {
+    if (todo.id === Number(id)) {
+      todo.completed = false;
+    }
+  });
   res.json(todosInitialValues);
 });
 
