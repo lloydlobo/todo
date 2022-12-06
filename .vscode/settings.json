@@ -35,7 +35,8 @@
     "docs/": true,
     "**/next.config.js": true,
     "express/node_modules": true,
-    "express/package-lock.json": true
+    "express/package-lock.json": true,
+    "server/node_modules": true
   },
   "explorerExclude.backup": {},
   "editor.tokenColorCustomizations": {

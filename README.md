@@ -1,11 +1,11 @@
-# Nextjs + Tailwindcss + React: todo App
+> Todo lists are a staple in beginning webdev tutorials because they can be very simple.
+> There is, however, a lot of room for improvement and many features that can be added.
+> > [TOP](https://www.theodinproject.com/lessons/node-path-javascript-todo-list#the-todo-list)
 
-## Sources
+## Structure
 
-- <https://react-hook-form.com/get-startedhttps://react-hook-form.com/get-started>
-- <https://snippets.alexandru.so/>
-- <https://github.com/cyber-wolve/todo-with-nextjs/blob/main/pages/index.js>
+<https://excalidraw.com/#json=tMw_PzpOD_EQS7HDygNxG,ZAQAPW1JsolsC_PgVUBKfA>
 
-## TO DO
+## Resources
 
-- [ ] Add tasks To Store
+- [The Odin Project: Todo List](https://www.theodinproject.com/lessons/node-path-javascript-todo-list)
