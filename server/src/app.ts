@@ -74,6 +74,11 @@ class App {
 
         // For docker images, omit `+srv` of Mongo Atlas.
         const uri = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`;
+        console.log(typeof uri);
+
+        if (typeof uri !== 'string') return;
+        if (typeof uri === 'undefined') return;
+        console.log(typeof uri);
 
         /**
          * Connect to MongoDB with mongoose driver.
