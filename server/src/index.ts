@@ -1,7 +1,7 @@
 /** Entrypoint for server app. */
+import validateEnv from '@/utils/validateEnv';
 import 'dotenv/config'; // Initialize env variables with dotenv asap.
 import 'module-alias/register'; // Register all module al;iases throughout application.
-import validateEnv from '@utils/validateEnv';
 import App from './app';
 
 // Goes through env file and checks if we have everything we need.

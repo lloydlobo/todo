@@ -1,6 +1,6 @@
 /** App Setup. */
-import ErrorMiddleware from '@middleware/error.middleware';
-import Controller from '@utils/interfaces/controller.interface';
+import ErrorMiddleware from '@/middleware/error.middleware';
+import Controller from '@/utils/interfaces/controller.interface';
 import compression from 'compression';
 import cors from 'cors';
 import express, { Application } from 'express';
