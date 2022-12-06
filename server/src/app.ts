@@ -74,19 +74,26 @@ class App {
 
         // For docker images, omit `+srv` of Mongo Atlas.
         const uri = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`;
-        console.log(typeof uri);
 
         if (typeof uri !== 'string') return;
         if (typeof uri === 'undefined') return;
-        console.log(typeof uri);
-
         /**
          * Connect to MongoDB with mongoose driver.
+         *
+         * Mongoose lets you start using your models immediately, without waiting
+         * for mongoose to establish a connection to MongoDB.
+         * That's because mongoose buffers model function calls internally. This buffering
+         * is convenient, but also a common source of confusion. Mongoose will not throw
+         * any errors by default if you use a model without connecting.
+         * @see https://www.mongodb.com/community/forums/t/mongooseerror-operation-users-insertone-buffering-timed-out-after-10000ms/143993/3
          * @param {string} uri
-         // * @params {ConnectOptions} {}
          * @returns {Promise<typeof mongoose>}
          */
-        mongoose.connect(uri, {});
+        // * @params {ConnectOptions} {}
+        mongoose
+            .connect(uri, {})
+            .then(() => console.log('Connected to MongoDB'))
+            .catch((err) => console.log(err));
     }
 
     /**

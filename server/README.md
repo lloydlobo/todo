@@ -12,6 +12,7 @@ NodeJS **API** built with Node.js, Express, Typescript, and MongoDB.
   - [Table of Contents](#table-of-contents)
   - [Troubleshoot](#troubleshoot)
     - [tsc not foumd](#tsc-not-foumd)
+    - [MONGODB Timed out](#mongodb-timed-out)
   - [API](#api)
     - [Endpoints](#endpoints)
       - [`users`](#users)
@@ -33,12 +34,22 @@ NodeJS **API** built with Node.js, Express, Typescript, and MongoDB.
 
 ### tsc not foumd
 
-- <https://community.render.com/t/typescript-support/377/6>
+- [Source](https://community.render.com/t/typescript-support/377/6)
   - To fix that error you need to change the build command to this:
 
     ```shell
     yarn; yarn build
     ```
+
+    - Set build command: `npm install && npm run build` in server settings.
+    - Clear the cache and deploy again.
+    - If you have typescript as a dev dependency,
+      make sure you don't have your node env set to production
+      or else npm i won't install typescript and tsc will fail. [Source](https://community.render.com/t/typescript-support/377/24)
+
+### MONGODB Timed out
+
+- Set URL to 0.0.0.0/0
 
 ## API
 
