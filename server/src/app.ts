@@ -15,6 +15,7 @@ import morgan from 'morgan';
 class App {
     public express: Application;
     public port: number;
+
     /**
      * Application API setup.
      * @property express {Application}
@@ -32,21 +33,7 @@ class App {
         this.initializeControllers(controllers);
         this.initializeErrorHandling(); // Error middleware has to come last in Express apps.
     }
-    /**
-     * Initializes MongoDB database connection.
-     * For more context, find examples in .env.example file in root directory.
-     */
-    private initializeDatabaseConnection(): void {
-        const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
-        // For docker images, omit `+srv` of Mongo Atlas.
-        const uri = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`;
-        /**
-         * Connect to MongoDB with mongoose driver.
-         * @param {string} uri
-         * @returns {Promise<typeof mongoose>}
-         */
-        mongoose.connect(uri);
-    }
+
     /**
      * Initializes Express App middleware.
      */
@@ -58,8 +45,10 @@ class App {
         this.express.use(express.urlencoded({ extended: false }));
         this.express.use(compression()); // Middleware from compressing requests.
     }
+
     /**
      * Initializes controllers with api endpoint prefix of /api.
+     * * controllers - Array of Controller of path: `string`, & router:`Router`.
      * @param {Controller[]} controllers
      */
     private initializeControllers(controllers: Controller[]): void {
@@ -67,6 +56,7 @@ class App {
             this.express.use('/api', controller.router);
         });
     }
+
     /**
      * Initializes http error handling with express middleware.
      */
@@ -74,6 +64,26 @@ class App {
         // Do not call ErrorMiddleware function here.
         this.express.use(ErrorMiddleware);
     }
+
+    /**
+     * Initializes MongoDB database connection.
+     * For more context, find examples in .env.example file in root directory.
+     */
+    private initializeDatabaseConnection(): void {
+        const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
+
+        // For docker images, omit `+srv` of Mongo Atlas.
+        const uri = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`;
+
+        /**
+         * Connect to MongoDB with mongoose driver.
+         * @param {string} uri
+         // * @params {ConnectOptions} {}
+         * @returns {Promise<typeof mongoose>}
+         */
+        mongoose.connect(uri, {});
+    }
+
     /**
      * Make sure to call this function before starting the server.
      * Makes it accessible to outside of our App.

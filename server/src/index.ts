@@ -1,7 +1,6 @@
 /**
  * index.ts - Entrypoint for the app for the backend server.
  */
-
 import 'dotenv/config'; // Initialize env variables with dotenv asap.
 import 'module-alias/register'; // Register all module alliases throughout the application.
 

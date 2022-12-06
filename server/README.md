@@ -12,8 +12,8 @@ NodeJS **API** built with Node.js, Express, Typescript, and MongoDB.
   - [Table of Contents](#table-of-contents)
   - [API](#api)
     - [Endpoints](#endpoints)
-      - [`user`](#user)
-      - [`post`](#post)
+      - [`users`](#users)
+      - [`posts`](#posts)
   - [Structure](#structure)
     - [Framework Setup in root/src/](#framework-setup-in-rootsrc)
     - [Post-Framework File Setup](#post-framework-file-setup)
@@ -31,19 +31,20 @@ NodeJS **API** built with Node.js, Express, Typescript, and MongoDB.
 
 ### Endpoints
 
-#### `user`
+#### `users`
 
-|   |   |
-|---|---|
-|   |   |
+- TODO
 
-#### `post`
+|  Endpoint  | Method |   Description   |
+| :--------: | :----: | :-------------: |
+| /api/users | `POST` | Create new user |
 
-|   |   |
-|---|---|
-|   |   |
+#### `posts`
 
----
+|  Endpoint  | Method |  Description  |
+| :--------: | :----: | :-----------: |
+| /api/posts | `GET`  | Get all posts |
+| /api/posts | `POST` | Create posts  |
 
 ## Structure
 
@@ -126,7 +127,7 @@ npm i -D eslint-config-prettier eslint-plugin-prettier @typescript-eslint/parser
 ##### Types
 
 ```shell
-npm i -D @types/node @types/express @types/compression @types/cors @types/morgan
+npm i -D @types/node @types/express @types/compression @types/cors @types/morgan @types/module-alias
 ```
 
 ## Credits
