@@ -11,6 +11,7 @@ npx tsc --init
 ```shell
 npm i express dotenv        // routing engine & environment variables from .env to use in process.env
 npm i module-alias          // Create aliases of directories and register custom module paths in NodeJS like a boss!
+npm i mongoose compression cors morgan helmet
 ```
 
 ### Dev-Dependencies
@@ -19,6 +20,10 @@ npm i module-alias          // Create aliases of directories and register custom
 npm i -D typescript tsc-watch eslint prettier eslint-config-prettier
 eslint-plugin-prettier @typescript-eslint/parser
 @typescript-eslint/eslint-plugin @types/node @types/express
+```
+
+```shell
+npm i -D @types/compression @types/cors @types/morgan
 ```
 
 ## Credits
