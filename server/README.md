@@ -10,6 +10,8 @@ NodeJS **API** built with Node.js, Express, Typescript, and MongoDB.
 
 - [todo | server](#todo--server)
   - [Table of Contents](#table-of-contents)
+  - [Troubleshoot](#troubleshoot)
+    - [tsc not foumd](#tsc-not-foumd)
   - [API](#api)
     - [Endpoints](#endpoints)
       - [`users`](#users)
@@ -26,6 +28,17 @@ NodeJS **API** built with Node.js, Express, Typescript, and MongoDB.
         - [Plugins: Linting \& Formatiing](#plugins-linting--formatiing)
         - [Types](#types)
   - [Credits](#credits)
+
+## Troubleshoot
+
+### tsc not foumd
+
+- <https://community.render.com/t/typescript-support/377/6>
+  - To fix that error you need to change the build command to this:
+
+    ```shell
+    yarn; yarn build
+    ```
 
 ## API
 
