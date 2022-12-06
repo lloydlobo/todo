@@ -10,6 +10,7 @@ import App from './app';
 
 /** Goes through env file and checks if we have everything we need. */
 validateEnv();
+console.log(Number(process?.env?.PORT!));
 
 /**
  * * Controller[] - Array of controls that sets up routes.
@@ -34,7 +35,7 @@ validateEnv();
  * ```
  * * Then it gets added to the main Express router and you can access from there.
  */
-const app = new App([new PostController()], Number(process.env.PORT));
+const app = new App([new PostController()], Number(process?.env?.PORT!));
 
 /** Expose API to outside world.*/
 app.listen();
