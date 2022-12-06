@@ -44,8 +44,10 @@ export function Navbar({ toggle }: { toggle: ReactNode }) {
           <SearchModal />
         </div>
         <div className="login">
-          <a className="login-btn btn hidden sm:flex">Login</a>
-          <div className="login-icon sm:hidden">
+          <Link className="login-btn btn hidden sm:flex" href={"/login"}>
+            Login
+          </Link>
+          <Link className="login-icon sm:hidden" href={"/login"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,7 +62,7 @@ export function Navbar({ toggle }: { toggle: ReactNode }) {
                 d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
               />
             </svg>
-          </div>
+          </Link>
         </div>
       </div>
     </div>
