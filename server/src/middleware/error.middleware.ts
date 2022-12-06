@@ -1,6 +1,15 @@
-import { Request, Response, NextFunction } from 'express';
 import HttpException from '@utils/exceptions/http.exception';
+import { NextFunction, Request, Response } from 'express';
 
+/**
+ * errorMiddleware.
+ * Error middleware has to come last in Express apps
+ *
+ * @param error Creates error specific to http exceptions.
+ * @param req Express Request.
+ * @param res Express Response.
+ * @param next Express NextFunction.
+ */
 function errorMiddleware(
     error: HttpException,
     req: Request,

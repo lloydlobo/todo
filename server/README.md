@@ -14,6 +14,10 @@ npm i module-alias          // Create aliases of directories and register custom
 npm i mongoose compression cors morgan helmet
 ```
 
+```shell
+npm i envalid               // validate env variables from .env
+```
+
 ### Dev-Dependencies
 
 ```shell
