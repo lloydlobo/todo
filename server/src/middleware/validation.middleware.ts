@@ -1,6 +1,5 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import Joi from 'joi';
-
 /**
  * validationMiddleware validates the request body against the schema.
  * @param {Joi.Schema} schema

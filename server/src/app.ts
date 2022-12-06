@@ -8,7 +8,10 @@ import helmet from 'helmet';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 
-/** Application API setup */
+/**
+ * Application's server side API setup.
+ * @see https://youtu.be/1o9YOHeKhNQ
+ */
 class App {
     public express: Application;
     public port: number;
